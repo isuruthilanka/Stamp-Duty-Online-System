@@ -1,0 +1,3428 @@
+
+    <div class="container">
+        <!-- Government Header -->
+        <div class="government-header">
+            <div class="gov-text">
+                <h1>Department of Revenue</h1>
+                <h2>Western Province</h2>
+            </div>
+        </div>
+
+        <header>
+            <!-- Moved title to left corner -->
+            <div class="header-title">
+                <h1><i class="fas fa-calculator"></i> Stamp Duty Calculation Sheet</h1>
+            </div>
+            
+            <!-- UPDATED: All buttons in one row -->
+            <div class="header-actions">
+                <button class="print-btn" id="print-btn">
+                    <i class="fas fa-print"></i> Print Report
+                </button>
+                <button class="save-btn" id="save-btn">
+                    <i class="fas fa-save"></i> Save All
+                </button>
+                <button class="reset-header-btn" id="reset-header-btn">
+                    <i class="fas fa-redo"></i> Reset All
+                </button>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <div class="calculator-card">
+                <h2><i class="fas fa-edit"></i> Calculation of Property Value and Stamp Duty</h2>
+                
+                <!-- File Number Section -->
+                <div class="file-number-section">
+                    <h3><i class="fas fa-file-alt"></i> File Number</h3>
+                    <div class="file-number-form">
+                        <!-- UPDATED: Changed from input to dropdown -->
+                        <select class="file-number-input" id="file-prefix">
+                            <option value="WP(K)">WP(K)</option>
+                            <option value="WP(C)">WP(C)</option>
+                            <option value="WP(S)">WP(S)</option>
+                            <option value="WP(G)">WP(G)</option>
+                            <option value="WP(M)">WP(M)</option>
+                        </select>
+                        <input type="text" class="file-number-input" id="file-dept" value="SD" readonly>
+                        <input type="text" class="file-number-input" id="file-office" value="OP" readonly>
+                        <input type="number" class="file-number-input year-input" id="file-year" min="2000" max="2100" value="2026" placeholder="Year">
+                        <select class="file-number-input full-alphabet" id="file-letter">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                            <option value="G">G</option>
+                            <option value="H">H</option>
+                            <option value="I">I</option>
+                            <option value="J">J</option>
+                            <option value="K">K</option>
+                            <option value="L">L</option>
+                            <option value="M">M</option>
+                            <option value="N">N</option>
+                            <option value="O">O</option>
+                            <option value="P">P</option>
+                            <option value="Q">Q</option>
+                            <option value="R">R</option>
+                            <option value="S">S</option>
+                            <option value="T">T</option>
+                            <option value="U">U</option>
+                            <option value="V">V</option>
+                            <option value="W">W</option>
+                            <option value="X">X</option>
+                            <option value="Y">Y</option>
+                            <option value="Z">Z</option>
+                        </select>
+                        <input type="number" class="file-number-input" id="file-number" placeholder="00000" value="">
+                        <button class="clear-file-btn" id="clear-file-btn">
+                            <i class="fas fa-eraser"></i> Clear
+                        </button>
+                    </div>
+                    <button class="generate-file-btn" id="generate-file-btn">
+                        <i class="fas fa-barcode"></i> Generate File Number
+                    </button>
+                    <div class="generated-file-number" id="generated-file-number" style="display: none;">
+                        Generated File Number: <span id="file-number-display"></span>
+                    </div>
+                </div>
+
+                <!-- Description Section -->
+                <div class="description-section">
+                    <h3><i class="fas fa-file-alt"></i> Description</h3>
+                    <textarea id="description" placeholder="Enter description here..." rows="6"></textarea>
+                    <div class="description-tools">
+                        <button class="save-desc-btn" id="save-desc-btn">
+                            <i class="fas fa-save"></i> Save Description
+                        </button>
+                        <button class="load-desc-btn" id="load-desc-btn">
+                            <i class="fas fa-folder-open"></i> Load Saved
+                        </button>
+                        <button class="grammar-check-btn" id="grammar-check-btn">
+                            <i class="fas fa-spell-check"></i> Check Grammar
+                        </button>
+                        <button class="clear-desc-btn" id="clear-desc-btn">
+                            <i class="fas fa-eraser"></i> Clear
+                        </button>
+                        <div class="word-count" id="word-count">
+                            <i class="fas fa-font"></i> Words: <span id="word-count-number">0</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Saved Descriptions Display -->
+                    <div class="saved-descriptions-display" id="saved-descriptions-display">
+                        <h4><i class="fas fa-history"></i> Saved Descriptions</h4>
+                        <div id="saved-descriptions-list"></div>
+                    </div>
+                    
+                    <!-- Dropdown for Load -->
+                    <div class="saved-descriptions-dropdown" id="saved-descriptions-dropdown"></div>
+                </div>
+
+                <!-- Property Location Section -->
+                <div class="property-location-section">
+                    <h3><i class="fas fa-map-marker-alt"></i> Property Location</h3>
+                    <div class="location-search">
+                        <input type="text" class="search-bar" id="location-search" placeholder="Search locations or buildings...">
+                        <button class="location-tab active" id="find-location-tab">
+                            <i class="fas fa-search"></i> Find Location
+                        </button>
+                        <button class="location-tab" id="current-location-tab">
+                            <i class="fas fa-location-arrow"></i> Current Location
+                        </button>
+                        <button class="location-tab" id="save-location-tab">
+                            <i class="fas fa-save"></i> Save Location
+                        </button>
+                        <button class="location-tab" id="load-location-tab">
+                            <i class="fas fa-folder-open"></i> Load Saved
+                        </button>
+                        <button class="location-tab clear-location-btn" id="clear-location-tab">
+                            <i class="fas fa-eraser"></i> Clear Location
+                        </button>
+                    </div>
+                    <div class="location-details">
+                        <div id="map-container" class="map-container"></div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="latitude">Latitude</label>
+                                <input type="text" id="latitude" placeholder="Enter latitude">
+                            </div>
+                            <div class="input-group">
+                                <label for="longitude">Longitude</label>
+                                <input type="text" id="longitude" placeholder="Enter longitude">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="property-address">Property Location Address</label>
+                            <textarea id="property-address" placeholder="Enter property address" rows="2"></textarea>
+                        </div>
+                        <div class="input-group">
+                            <label for="google-maps-url">Google Maps Location Address (URL)</label>
+                            <input type="url" id="google-maps-url" placeholder="Enter Google Maps URL">
+                        </div>
+                    </div>
+                    <div class="saved-locations-dropdown" id="saved-locations-dropdown"></div>
+                </div>
+
+                <!-- UPDATED: Area Converter Section with Enhanced Design -->
+                <div class="area-converter-section">
+                    <h3><i class="fas fa-exchange-alt"></i> Property Area Unit Converter</h3>
+                    <div class="area-inputs">
+                        <div class="area-input-group" data-unit="Perch">
+                            <label for="area-perch"><i class="fas fa-ruler"></i> Perch</label>
+                            <input type="number" id="area-perch" value="0" step="0.0001">
+                        </div>
+                        <div class="area-input-group" data-unit="Rood">
+                            <label for="area-rood"><i class="fas fa-ruler-combined"></i> Rood</label>
+                            <input type="number" id="area-rood" value="0" step="0.0001">
+                        </div>
+                        <div class="area-input-group" data-unit="Acre">
+                            <label for="area-acre"><i class="fas fa-landmark"></i> Acre</label>
+                            <input type="number" id="area-acre" value="0" step="0.0001">
+                        </div>
+                        <div class="area-input-group" data-unit="Hectare">
+                            <label for="area-hectare"><i class="fas fa-globe"></i> Hectare</label>
+                            <input type="number" id="area-hectare" value="0" step="0.0001">
+                        </div>
+                        <div class="area-input-group" data-unit="Sq. Ft">
+                            <label for="area-square-feet"><i class="fas fa-square"></i> Square Feet</label>
+                            <input type="number" id="area-square-feet" value="0" step="0.0001">
+                        </div>
+                    </div>
+                    <div class="area-tools">
+                        <button class="reset-area-btn" id="reset-area-btn">
+                            <i class="fas fa-redo"></i> Reset Converter
+                        </button>
+                    </div>
+                </div>
+
+                <!-- UPDATED: Database Range Section with Enhanced Design -->
+                <div class="database-range-section">
+                    <h3><i class="fas fa-database"></i> Database Range</h3>
+                    <div class="database-range-inputs">
+                        <div class="database-input-group">
+                            <label for="serial-number"><i class="fas fa-hashtag"></i> Serial Number</label>
+                            <div class="input-with-buttons">
+                                <input type="text" id="serial-number" placeholder="Enter any serial number or identifier">
+                                <div class="database-buttons">
+                                    <button class="database-save-btn" data-field="serial-number">
+                                        <i class="fas fa-save"></i> Save
+                                    </button>
+                                    <button class="database-clear-btn" data-field="serial-number">
+                                        <i class="fas fa-eraser"></i> Clear
+                                    </button>
+                                    <button class="database-load-btn" data-field="serial-number">
+                                        <i class="fas fa-folder-open"></i> Load
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="database-input-group">
+                            <label for="database-range-value"><i class="fas fa-chart-line"></i> Database Range Value (Rs.)</label>
+                            <div class="input-with-buttons">
+                                <input type="text" id="database-range-value" placeholder="Enter any value - e.g., 10,000-50,000">
+                                <div class="database-buttons">
+                                    <button class="database-save-btn" data-field="database-range-value">
+                                        <i class="fas fa-save"></i> Save
+                                    </button>
+                                    <button class="database-clear-btn" data-field="database-range-value">
+                                        <i class="fas fa-eraser"></i> Clear
+                                    </button>
+                                    <button class="database-load-btn" data-field="database-range-value">
+                                        <i class="fas fa-folder-open"></i> Load
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Saved Database Values Display -->
+                    <div class="saved-database-values" id="saved-database-values" style="display: none;">
+                        <h4><i class="fas fa-history"></i> Saved Database Values</h4>
+                        <div id="saved-database-list"></div>
+                    </div>
+                </div>
+
+                <!-- Deed Type Selection -->
+                <div class="deed-type-selector">
+                    <div class="deed-type-btn active" id="deed-transfer">
+                        <i class="fas fa-exchange-alt"></i> Deed of Transfer
+                    </div>
+                    <div class="deed-type-btn" id="deed-gift">
+                        <i class="fas fa-gift"></i> Deed of Gift
+                    </div>
+                    <div class="deed-type-btn" id="deed-exchange">
+                        <i class="fas fa-sync-alt"></i> Deed of Exchange
+                    </div>
+                </div>
+
+                <!-- Gift Scenarios (Only for Deed of Gift) -->
+                <div class="gift-scenarios" id="gift-scenarios">
+                    <h4>Select Gift Scenario:</h4>
+                    <div class="method-buttons">
+                        <button class="gift-scenario-btn active" id="scenario-before-1977">
+                            Acquired on/before 31st March 1977
+                        </button>
+                        <button class="gift-scenario-btn" id="scenario-after-1977">
+                            Acquired after 31st March 1977
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Method Selector for Deed of Transfer -->
+                <div class="method-selector" id="method-selector">
+                    <h4>Select Valuation Method:</h4>
+                    <div class="method-buttons">
+                        <button class="method-btn active" id="method-comparison">
+                            Comparison Method
+                        </button>
+                        <button class="method-btn" id="method-contractors">
+                            Contractors Method
+                        </button>
+                        <button class="method-btn" id="method-investment">
+                            Investment Method
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Comparison Method -->
+                <div class="calculation-method active comparison-method" id="comparison-method">
+                    <h3>Comparison Method</h3>
+                    
+                    <div id="comparison-lots">
+                        <div class="lot-section" id="lot-1">
+                            <div class="lot-header">
+                                <h4>Land Lot 1</h4>
+                                <button class="remove-btn" onclick="removeLot(1)">Remove</button>
+                            </div>
+                            
+                            <!-- Part Tabs for Comparison Method -->
+                            <div class="part-tabs" id="lot-1-parts">
+                                <div class="part-tab active" onclick="showPart(1, 1, 'comparison')">
+                                    <div class="part-tab-content">
+                                        Part 01
+                                        <button class="remove-part-btn" onclick="removePart(1, 1, 'comparison')" title="Remove Part">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="add-part-btn" onclick="addPart(1, 'comparison')">
+                                <i class="fas fa-plus"></i> Add Part
+                            </button>
+                            
+                            <!-- Part 01 Content -->
+                            <div class="part-content active" id="lot-1-part-1">
+                                <div class="input-row">
+                                    <div class="input-group">
+                                        <label for="perch-value-1-1">Perch Value (Rs.)</label>
+                                        <input type="number" id="perch-value-1-1" value="0" oninput="updateLotValue(1, 'comparison')">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="extent-1-1">Extent (Perch)</label>
+                                        <input type="number" id="extent-1-1" value="0" oninput="updateLotValue(1, 'comparison')">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label>Part Market Value: <span id="market-value-1-1">Rs. 0</span></label>
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label>Total Lot Market Value: <span id="total-market-value-1">Rs. 0</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="add-btn" onclick="addComparisonLot()">
+                        <i class="fas fa-plus"></i> Add Another Land Lot
+                    </button>
+                </div>
+
+                <!-- Contractors Method -->
+                <div class="calculation-method" id="contractors-method">
+                    <h3>Contractors Method</h3>
+                    
+                    <!-- Land Lots -->
+                    <h4>Land Details</h4>
+                    <div id="contractor-land-lots">
+                        <div class="lot-section" id="contractor-land-1">
+                            <div class="lot-header">
+                                <h5>Land Lot 1</h5>
+                                <button class="remove-btn" onclick="removeContractorLand(1)">Remove</button>
+                            </div>
+                            
+                            <!-- Part Tabs for Contractors Method -->
+                            <div class="part-tabs" id="contractor-land-1-parts">
+                                <div class="part-tab active" onclick="showPart(1, 1, 'contractor')">
+                                    <div class="part-tab-content">
+                                        Part 01
+                                        <button class="remove-part-btn" onclick="removePart(1, 1, 'contractor')" title="Remove Part">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="add-part-btn" onclick="addPart(1, 'contractor')">
+                                <i class="fas fa-plus"></i> Add Part
+                            </button>
+                            
+                            <!-- Part 01 Content -->
+                            <div class="part-content active" id="contractor-land-1-part-1">
+                                <div class="input-row">
+                                    <div class="input-group">
+                                        <label>Perch Value (Rs.)</label>
+                                        <input type="number" id="c-perch-value-1-1" value="0" oninput="updateContractorLotValue(1)">
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Extent (Perch)</label>
+                                        <input type="number" id="c-extent-1-1" value="0" oninput="updateContractorLotValue(1)">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label>Part Market Value: <span id="c-market-value-1-1">Rs. 0</span></label>
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label>Total Lot Market Value: <span id="c-total-market-value-1">Rs. 0</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="add-btn" onclick="addContractorLand()">
+                        <i class="fas fa-plus"></i> Add Land Lot
+                    </button>
+
+                    <!-- Buildings -->
+                    <h4>Building Details</h4>
+                    <div id="contractor-buildings">
+                        <div class="contractor-building-section" id="building-1">
+                            <div class="contractor-building-header">
+                                <h5>Building 1</h5>
+                                <button class="remove-btn" onclick="removeContractorBuilding(1)">Remove</button>
+                            </div>
+                            
+                            <!-- Building Floors -->
+                            <div id="building-floors-1">
+                                <div class="floor-row" id="building-1-floor-1">
+                                    <div class="input-row">
+                                        <div class="input-group">
+                                            <label>Construction Cost/Sq.Ft. (Rs.) - Ground Floor</label>
+                                            <input type="number" id="construction-cost-b1-f1" value="0">
+                                        </div>
+                                        <div class="input-group">
+                                            <label>Area (Sq.Ft.) - Ground Floor</label>
+                                            <input type="number" id="floor-area-b1-f1" value="0">
+                                        </div>
+                                        <div class="input-group" style="flex: 0 0 auto; margin-top: 10px;">
+                                            <button class="remove-btn" onclick="removeBuildingFloor(1, 1)" style="padding: 8px 12px;">
+                                                Remove Floor
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="add-btn" onclick="addBuildingFloor(1)">
+                                <i class="fas fa-plus"></i> Add Another Floor
+                            </button>
+                            
+                            <!-- NEW: Other Amenities Section -->
+                            <div class="amenities-section">
+                                <h5>Other Amenities</h5>
+                                <div id="building-amenities-1"></div>
+                                <button class="add-btn" onclick="addBuildingAmenity(1)">
+                                    <i class="fas fa-plus"></i> Add Amenity
+                                </button>
+                            </div>
+                            
+                            <!-- Building Depreciation -->
+                            <div class="input-group">
+                                <label>Building Depreciation (%)</label>
+                                <input type="number" id="building-depreciation-1" value="0" min="0" max="100">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="add-btn" onclick="addContractorBuilding()">
+                        <i class="fas fa-plus"></i> Add Another Building
+                    </button>
+                </div>
+
+                <!-- Investment Method -->
+                <div class="calculation-method" id="investment-method">
+                    <h3>Investment Method</h3>
+
+                    <!-- Rental Units -->
+                    <h4>Rental Units</h4>
+                    <div id="rental-units">
+                        <div class="rental-unit-section" id="rental-unit-1">
+                            <div class="rental-unit-header">
+                                <h5>Rental Unit 1</h5>
+                                <button class="remove-btn" onclick="removeRentalUnit(1)">Remove</button>
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label>Rent/Sq.Ft. (Rs.)</label>
+                                    <input type="number" id="rent-per-sqft-1" value="0">
+                                </div>
+                                <div class="input-group">
+                                    <label>Extent (Sq.Ft.)</label>
+                                    <input type="number" id="property-extent-1" value="0">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label>Outgoings (%)</label>
+                                <input type="number" id="outgoings-percent-1" value="0" min="0" max="100">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="add-btn" onclick="addRentalUnit()">
+                        <i class="fas fa-plus"></i> Add Rental Unit
+                    </button>
+
+                    <!-- Rate Converter -->
+                    <div class="rate-converter">
+                        <h4>Rate of Return Calculator</h4>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>Rate of Return (%)</label>
+                                <input type="number" id="rate-of-return" value="0" oninput="updateYearsOfPurchase()">
+                            </div>
+                            <div class="input-group">
+                                <label>Years of Purchase</label>
+                                <input type="number" id="years-of-purchase" value="0" oninput="updateRateOfReturn()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gift Method - Scenario 1 (Before 31st March 1977) -->
+                <div class="calculation-method" id="gift-method-scenario1">
+                    <h3>Property acquired on/before 31st March 1977</h3>
+                    
+                    <!-- Property Details Section -->
+                    <div class="gift-subsection">
+                        <h4>Property Details</h4>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="gift-land-extent-s1">Extent of The Land (Perch)</label>
+                                <input type="number" id="gift-land-extent-s1" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label for="gift-land-date-s1">Date of Acquire (Land)</label>
+                                <input type="date" id="gift-land-date-s1">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="gift-building-extent-s1">Extent of The Building (Sq.Ft.)</label>
+                                <input type="number" id="gift-building-extent-s1" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label for="gift-building-date-s1">Date of Acquire (Building)</label>
+                                <input type="date" id="gift-building-date-s1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- (A) Market Value as at Acquisition Date -->
+                    <div class="gift-subsection">
+                        <h4>As market value</h4>
+                        <div class="date-input-wrapper">
+                            <span class="date-label">Date for (A):</span>
+                            <input type="date" class="gift-date-input" id="date-input-a-s1">
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="gift-perch-value-a-s1">Perch Value of the Land (Rs.)</label>
+                                <input type="number" id="gift-perch-value-a-s1" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label for="gift-building-value-a-s1">Buildings if any (Rs.)</label>
+                                <input type="number" id="gift-building-value-a-s1" value="0">
+                            </div>
+                        </div>
+                        
+                        <h5>Add (After 31.03.1977 and prior to the date of such property gifted):</h5>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="gift-improvements-s1">Improvements (Rs.)</label>
+                                <input type="number" id="gift-improvements-s1" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label for="gift-alterations-s1">Alterations (Rs.)</label>
+                                <input type="number" id="gift-alterations-s1" value="0">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="gift-additions-s1">Additions of Buildings (Rs.)</label>
+                                <input type="number" id="gift-additions-s1" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label for="gift-others-s1">Others (Rs.)</label>
+                                <input type="number" id="gift-others-s1" value="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- (B) Open Market Value at Gift Date -->
+                    <div class="gift-subsection">
+                        <h4>(B) Open Market Value at Gift Date</h4>
+                        <div class="date-input-wrapper">
+                            <span class="date-label">Gift Date for (B):</span>
+                            <input type="date" class="gift-date-input" id="gift-date-input-s1">
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="gift-perch-value-b-s1">Perch Value of the Land (Rs.)</label>
+                                <input type="number" id="gift-perch-value-b-s1" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label for="gift-building-value-b-s1">Buildings if any (Rs.)</label>
+                                <input type="number" id="gift-building-value-b-s1" value="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gift Method - Scenario 2 (After 31st March 1977) -->
+                <div class="calculation-method" id="gift-method-scenario2">
+                    <h3>Property acquired after 31st March 1977</h3>
+                    
+                    <!-- Property Details Section -->
+                    <div class="gift-subsection">
+                        <h4>Property Details</h4>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="gift-land-extent-s2">Extent of The Land (Perch)</label>
+                                <input type="number" id="gift-land-extent-s2" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label for="gift-land-date-s2">Date of Acquire (Land)</label>
+                                <input type="date" id="gift-land-date-s2">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="gift-building-extent-s2">Extent of The Building (Sq.Ft.)</label>
+                                <input type="number" id="gift-building-extent-s2" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label for="gift-building-date-s2">Date of Acquire (Building)</label>
+                                <input type="date" id="gift-building-date-s2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- (A) Market Value as at Acquisition Date -->
+                    <div class="gift-subsection">
+                        <h4>As market value</h4>
+                        <div class="date-input-wrapper">
+                            <span class="date-label">Date for (A):</span>
+                            <input type="date" class="gift-date-input" id="date-input-a-s2">
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="gift-perch-value-a-s2">Perch Value of the Land (Rs.)</label>
+                                <input type="number" id="gift-perch-value-a-s2" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label for="gift-building-value-a-s2">Buildings if any (Rs.)</label>
+                                <input type="number" id="gift-building-value-a-s2" value="0">
+                            </div>
+                        </div>
+                        
+                        <h5 id="add-after-date-h5-s2">Add (After 31.03.1977 and prior to the date of such property gifted):</h5>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="gift-improvements-s2">Improvements (Rs.)</label>
+                                <input type="number" id="gift-improvements-s2" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label for="gift-alterations-s2">Alterations (Rs.)</label>
+                                <input type="number" id="gift-alterations-s2" value="0">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="gift-additions-s2">Additions of Buildings (Rs.)</label>
+                                <input type="number" id="gift-additions-s2" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label for="gift-others-s2">Others (Rs.)</label>
+                                <input type="number" id="gift-others-s2" value="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- (B) Open Market Value at Gift Date -->
+                    <div class="gift-subsection">
+                        <h4>(B) Open Market Value at Gift Date</h4>
+                        <div class="date-input-wrapper">
+                            <span class="date-label">Gift Date for (B):</span>
+                            <input type="date" class="gift-date-input" id="gift-date-input-s2">
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="gift-perch-value-b-s2">Perch Value of the Land (Rs.)</label>
+                                <input type="number" id="gift-perch-value-b-s2" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label for="gift-building-value-b-s2">Buildings if any (Rs.)</label>
+                                <input type="number" id="gift-building-value-b-s2" value="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exchange Method -->
+                <div class="calculation-method" id="exchange-method">
+                    <h3>Exchange Method</h3>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Perch Value (Rs.)</label>
+                            <input type="number" id="exchange-perch-value" value="0">
+                        </div>
+                        <div class="input-group">
+                            <label>Extent (Perch)</label>
+                            <input type="number" id="exchange-extent" value="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manual Override -->
+                <div class="manual-override">
+                    <h4><i class="fas fa-edit"></i> Manual Property Value Override</h4>
+                    <div class="override-control">
+                        <input type="number" class="override-input" id="manual-property-value" placeholder="Enter custom property value (Rs.)" value="0">
+                        <button class="use-override-btn" id="use-override-btn">
+                            <i class="fas fa-check"></i> Use This Value
+                        </button>
+                    </div>
+                </div>
+
+                <button class="btn-calculate" id="calculate-btn">
+                    <i class="fas fa-calculator"></i> Calculate Stamp Duty
+                </button>
+            </div>
+            
+            <!-- Results Card with Dual Display -->
+            <div class="results-card">
+                <h2><i class="fas fa-chart-pie"></i> Calculation Results</h2>
+                <div class="results-content" id="results-content">
+                    
+                    <!-- Property Value Calculation with Dual Display -->
+                    <div class="value-equation" id="value-equation">
+                        <h3><i class="fas fa-calculator"></i> Property Value Calculation</h3>
+                        
+                        <div class="calculation-options">
+                            <div class="calculation-method-display">
+                                <h4><i class="fas fa-calculator"></i> Calculated by Method</h4>
+                                <div class="calculation-display" id="calculated-equation">
+                                    No calculation performed yet.
+                                </div>
+                                <div class="method-total">
+                                    Calculated Property Value: <span id="calculated-property-value">Rs. 0</span>
+                                </div>
+                            </div>
+                            
+                            <div class="manual-override-display">
+                                <h4><i class="fas fa-edit"></i> Manual Override</h4>
+                                <div class="calculation-display" id="manual-equation">
+                                    No manual override set.
+                                </div>
+                                <div class="manual-total">
+                                    Manual Property Value: <span id="manual-property-value-display">Rs. 0</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Selection Toggle -->
+                        <div class="selection-toggle" id="selection-toggle">
+                            <h4><i class="fas fa-check-circle"></i> Select which value to use for stamp duty calculation:</h4>
+                            <div class="toggle-options">
+                                <div class="toggle-option active" id="toggle-calculated">
+                                    <h5><i class="fas fa-calculator"></i> Use Calculated Value</h5>
+                                    <div class="toggle-value" id="toggle-calculated-value">Rs. 0</div>
+                                    <p>Based on the selected calculation method</p>
+                                    <i class="fas fa-check" style="display: block;"></i>
+                                </div>
+                                <div class="toggle-option" id="toggle-manual">
+                                    <h5><i class="fas fa-edit"></i> Use Manual Override</h5>
+                                    <div class="toggle-value" id="toggle-manual-value">Rs. 0</div>
+                                    <p>Based on manually entered value</p>
+                                    <i class="fas fa-check" style="display: none;"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Selected Result Display -->
+                        <div class="selected-result" id="selected-result">
+                            <div class="selected-result-header">
+                                <h4><i class="fas fa-check-circle"></i> Selected Property Value</h4>
+                                <span id="selected-method">(Calculated by Method)</span>
+                            </div>
+                            <div class="selected-result-value" id="selected-result-value">
+                                Rs. 0
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Stamp Duty Breakdown -->
+                    <div class="duty-breakdown" id="duty-breakdown">
+                        <h3>Stamp Duty Breakdown</h3>
+                        <div class="breakdown-item">
+                            <span>Deed Type:</span>
+                            <span id="deed-type-result">Transfer</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>Valuation Method:</span>
+                            <span id="valuation-method">Comparison</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>Selected Property Value:</span>
+                            <span id="property-value-display">Rs. 0</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>First Tier Duty:</span>
+                            <span id="first-tier-duty">Rs. 0</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>Second Tier Duty:</span>
+                            <span id="second-tier-duty">Rs. 0</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Total Duty -->
+                    <div class="total-duty" id="total-duty">
+                        <span>Total Stamp Duty:</span>
+                        <span id="total-duty-amount">Rs. 0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- UPDATED: Signature Section - Only Prepared By remains -->
+        <div class="signature-section">
+            <h3><i class="fas fa-signature"></i> Authorized Signatures</h3>
+            
+            <div class="signature-fields">
+                <div class="signature-field">
+                    <div>Prepared By</div>
+                    <div class="signature-line"></div>
+                    <div class="signature-details">Name & Signature</div>
+                    <div class="signature-date">Date: ___________</div>
+                </div>
+            </div>
+            
+            <div class="official-stamp-area">
+                <h4>Official Stamp</h4>
+                <div class="stamp-placeholder">
+                    <i class="fas fa-stamp"></i>
+                    <span>Place Official Stamp Here</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- UPDATED: Footer with developer credit aligned right -->
+        <footer>
+            <p><strong>Department of Revenue (Western Province)</strong></p>
+            <p>Stamp Duty Calculator &copy; <span id="current-year">2024</span></p>
+            <div class="developer-credit">
+                &copy; <span id="developer-year">2024</span> Developed by IsuruTM
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize variables
+        let currentDeedType = 'transfer';
+        let currentMethod = 'comparison';
+        let currentGiftScenario = 'scenario-before-1977';
+        let manualPropertyValue = 0;
+        let calculatedPropertyValue = 0;
+        let useCalculatedValue = true;
+        
+        let comparisonLotCount = 1;
+        let contractorLandCount = 1;
+        let contractorBuildingCount = 1;
+        let buildingFloorCounts = {1: 1};
+        let rentalUnitCount = 1;
+        
+        // NEW: Track amenities per building
+        let buildingAmenityCounts = {};
+        
+        // Data storage
+        let savedDescriptions = JSON.parse(localStorage.getItem('stampDutyDescriptions') || '[]');
+        let savedLocations = JSON.parse(localStorage.getItem('stampDutyLocations') || '[]');
+        let savedDatabaseValues = JSON.parse(localStorage.getItem('stampDutyDatabaseValues') || '{}');
+        
+        // OpenStreetMap variables
+        let map;
+        let marker;
+        
+        // Part management for comparison method
+        let comparisonLotParts = {1: [1]};
+        let comparisonPartCounts = {1: 1};
+        
+        // Part management for contractors method
+        let contractorLotParts = {1: [1]};
+        let contractorPartCounts = {1: 1};
+        
+        // Area converter flag to prevent infinite loops
+        let isUpdatingArea = false;
+        
+        // Initialize on load
+        window.addEventListener('load', function() {
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            document.getElementById('developer-year').textContent = new Date().getFullYear();
+            
+            // Initialize map
+            initMap();
+            
+            // Initialize area converter
+            initAreaConverterFixed();
+            
+            // Initialize database buttons
+            initDatabaseButtons();
+            
+            // Update saved descriptions display
+            updateSavedDescriptionsDisplay();
+            
+            // Update saved database values display
+            updateSavedDatabaseDisplay();
+            
+            // Initialize event listeners for location search
+            initLocationSearch();
+            
+            // Initialize gift date inputs
+            initializeGiftDateInputs();
+            
+            // Toggle selection functionality
+            document.getElementById('toggle-calculated').addEventListener('click', function() {
+                selectCalculationMethod('calculated');
+            });
+            
+            document.getElementById('toggle-manual').addEventListener('click', function() {
+                selectCalculationMethod('manual');
+            });
+            
+            // Clear File Number button event listener
+            document.getElementById('clear-file-btn').addEventListener('click', clearFileNumber);
+            
+            // Clear Location button event listener
+            document.getElementById('clear-location-tab').addEventListener('click', clearLocation);
+            
+            // Clear description button
+            document.getElementById('clear-desc-btn').addEventListener('click', function() {
+                document.getElementById('description').value = '';
+                document.getElementById('word-count-number').textContent = '0';
+            });
+            
+            // Print Report functionality
+            document.getElementById('print-btn').addEventListener('click', function() {
+                // Prepare print view
+                preparePrintView();
+                // Short delay to ensure DOM updates before print dialog
+                setTimeout(function() {
+                    window.print();
+                    // Restore view after print
+                    setTimeout(restoreAfterPrint, 100);
+                }, 100);
+            });
+            
+            // File number generation
+            document.getElementById('generate-file-btn').addEventListener('click', function() {
+                const prefix = document.getElementById('file-prefix').value;
+                const dept = document.getElementById('file-dept').value;
+                const office = document.getElementById('file-office').value;
+                const year = document.getElementById('file-year').value;
+                const letter = document.getElementById('file-letter').value;
+                const number = document.getElementById('file-number').value.padStart(5, '0');
+                
+                // Validate year
+                if (!year || year < 2000 || year > 2100) {
+                    alert('Please enter a valid year between 2000 and 2100.');
+                    document.getElementById('file-year').focus();
+                    return;
+                }
+                
+                // Validate file number
+                if (!number || parseInt(number) <= 0) {
+                    alert('Please enter a valid file number.');
+                    document.getElementById('file-number').focus();
+                    return;
+                }
+                
+                const fileNumber = `${prefix}/${dept}/${office}/${year}/${letter}/${number}`;
+                document.getElementById('file-number-display').textContent = fileNumber;
+                document.getElementById('generated-file-number').style.display = 'block';
+                alert('File number generated: ' + fileNumber);
+            });
+            
+            // Word count for description
+            document.getElementById('description').addEventListener('input', function() {
+                const text = this.value;
+                const wordCount = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+                document.getElementById('word-count-number').textContent = wordCount;
+            });
+            
+            // Save description
+            document.getElementById('save-desc-btn').addEventListener('click', function() {
+                const description = document.getElementById('description').value.trim();
+                if (description) {
+                    const timestamp = new Date().toLocaleString();
+                    savedDescriptions.push({
+                        text: description,
+                        timestamp: timestamp,
+                        wordCount: description.split(/\s+/).length
+                    });
+                    
+                    // Keep only last 2 descriptions as requested
+                    if (savedDescriptions.length > 2) {
+                        savedDescriptions = savedDescriptions.slice(-2);
+                    }
+                    
+                    localStorage.setItem('stampDutyDescriptions', JSON.stringify(savedDescriptions));
+                    updateSavedDescriptionsDisplay();
+                    alert('Description saved successfully!');
+                } else {
+                    alert('Please enter a description first.');
+                }
+            });
+            
+            // Manual override button
+            document.getElementById('use-override-btn').addEventListener('click', function() {
+                const manualValue = parseFloat(document.getElementById('manual-property-value').value) || 0;
+                if (manualValue > 0) {
+                    manualPropertyValue = manualValue;
+                    
+                    // Update manual value display
+                    document.getElementById('manual-property-value-display').textContent = 
+                        `Rs. ${manualPropertyValue.toLocaleString('en-LK')}`;
+                    document.getElementById('toggle-manual-value').textContent = 
+                        `Rs. ${Math.round(manualPropertyValue).toLocaleString('en-LK')}`;
+                    
+                    // Update manual equation display
+                    document.getElementById('manual-equation').innerHTML = 
+                        `<div class="equation-line">Manual Property Value: Rs. ${manualPropertyValue.toLocaleString('en-LK')}</div>`;
+                    
+                    // Auto-select manual override if value is set
+                    if (manualPropertyValue > 0) {
+                        selectCalculationMethod('manual');
+                    }
+                    
+                    calculateStampDuty();
+                    alert(`Manual property value set: Rs. ${manualValue.toLocaleString()}`);
+                } else {
+                    alert('Please enter a valid manual property value.');
+                }
+            });
+            
+            // Event Listeners
+            document.getElementById('calculate-btn').addEventListener('click', calculateStampDuty);
+            document.getElementById('save-btn').addEventListener('click', function() {
+                saveAllData();
+                alert('All data saved successfully!');
+            });
+            
+            // Add event listeners to all inputs
+            document.addEventListener('input', function(e) {
+                if (e.target.type === 'number' || e.target.type === 'date') {
+                    calculateStampDuty();
+                }
+            });
+            
+            // Reset all
+            document.getElementById('reset-header-btn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to reset all data?')) {
+                    resetAllData();
+                }
+            });
+            
+            // Initial calculation
+            calculateStampDuty();
+        });
+        
+        // NEW: Enhanced prepare print view function
+        function preparePrintView() {
+            // Ensure all values are updated
+            calculateStampDuty();
+            
+            // Add data attributes for print labeling
+            addPrintDataAttributes();
+            
+            // Create print title
+            if (!document.querySelector('.print-title')) {
+                const printTitle = document.createElement('div');
+                printTitle.className = 'print-title';
+                printTitle.innerHTML = '<h1>Stamp Duty Calculation Sheet - Department of Revenue</h1>';
+                document.querySelector('.container').insertBefore(printTitle, document.querySelector('.content-wrapper'));
+            }
+            
+            // Set data attributes for print
+            document.querySelector('.calculator-card').setAttribute('data-active-deed', 
+                currentDeedType.charAt(0).toUpperCase() + currentDeedType.slice(1));
+            
+            // Force display of all calculation methods for print
+            document.querySelectorAll('.calculation-method').forEach(method => {
+                method.style.display = 'block';
+            });
+            
+            // Force display of all parts, floors, and amenities
+            document.querySelectorAll('.part-content, .floor-row, .amenity-row').forEach(element => {
+                element.style.display = 'block';
+            });
+            
+            // Update date displays
+            const today = new Date().toLocaleDateString();
+            document.querySelectorAll('.signature-date').forEach(el => {
+                el.textContent = el.textContent.replace('___________', today);
+            });
+            
+            // Generate file number automatically for print if not already
+            const fileNumDisplay = document.getElementById('generated-file-number');
+            if (fileNumDisplay.style.display === 'none') {
+                const prefix = document.getElementById('file-prefix').value;
+                const dept = document.getElementById('file-dept').value;
+                const office = document.getElementById('file-office').value;
+                const year = document.getElementById('file-year').value;
+                const letter = document.getElementById('file-letter').value;
+                const number = document.getElementById('file-number').value.padStart(5, '0') || '00001';
+                
+                if (year && letter && number) {
+                    const fileNumber = `${prefix}/${dept}/${office}/${year}/${letter}/${number}`;
+                    document.getElementById('file-number-display').textContent = fileNumber;
+                    fileNumDisplay.style.display = 'block';
+                }
+            }
+            
+            // Hide the valuation method selector
+            document.getElementById('method-selector').style.display = 'none';
+            
+            alert('Document prepared for printing. All parts, floors, and amenities will be displayed in the printout.');
+        }
+        
+        // NEW: Function to add data attributes for print
+        function addPrintDataAttributes() {
+            // Add data attributes to all parts for print labeling
+            document.querySelectorAll('.part-content').forEach((part, index) => {
+                // Find part number from ID
+                const partId = part.id;
+                let partNumber = index + 1;
+                
+                // Try to extract part number from ID
+                const matches = partId.match(/part-(\d+)/);
+                if (matches) {
+                    partNumber = parseInt(matches[1]);
+                }
+                
+                part.setAttribute('data-part-number', partNumber);
+                part.setAttribute('data-part-name', `Part ${partNumber}`);
+            });
+            
+            // Add data attributes to all floor rows
+            document.querySelectorAll('.floor-row').forEach((floor, index) => {
+                const floorId = floor.id || `floor-${index + 1}`;
+                let floorName = 'Ground Floor';
+                
+                // Extract floor number from ID
+                const matches = floorId.match(/floor-(\d+)/);
+                if (matches) {
+                    const floorNum = parseInt(matches[1]);
+                    if (floorNum === 1) floorName = 'Ground Floor';
+                    else if (floorNum === 2) floorName = '1st Floor';
+                    else if (floorNum === 3) floorName = '2nd Floor';
+                    else floorName = `${floorNum - 1}th Floor`;
+                }
+                
+                floor.setAttribute('data-floor-name', floorName);
+            });
+            
+            // NEW: Add data attributes to amenity rows
+            document.querySelectorAll('.amenity-row').forEach((amenity, index) => {
+                const amenityId = amenity.id;
+                let amenityName = `Amenity ${index + 1}`;
+                
+                // Try to extract a description from the input
+                const typeInput = amenity.querySelector('input[type="text"]');
+                if (typeInput && typeInput.value) {
+                    amenityName = typeInput.value;
+                }
+                
+                amenity.setAttribute('data-amenity-name', amenityName);
+            });
+            
+            // Add data attributes to all rental units
+            document.querySelectorAll('.rental-unit-section').forEach((unit, index) => {
+                unit.setAttribute('data-unit-number', index + 1);
+            });
+            
+            // Add data attributes to all gift subsections
+            document.querySelectorAll('.gift-subsection').forEach((section, index) => {
+                const header = section.querySelector('h4');
+                if (header) {
+                    section.setAttribute('data-section-name', header.textContent.trim());
+                } else {
+                    section.setAttribute('data-section-name', `Section ${index + 1}`);
+                }
+            });
+        }
+        
+        // NEW: Restore view after print
+        function restoreAfterPrint() {
+            // Remove print title
+            const printTitle = document.querySelector('.print-title');
+            if (printTitle) {
+                printTitle.remove();
+            }
+            
+            // Remove data attributes
+            document.querySelectorAll('[data-part-number], [data-part-name], [data-floor-name], [data-amenity-name], [data-unit-number], [data-section-name]').forEach(el => {
+                el.removeAttribute('data-part-number');
+                el.removeAttribute('data-part-name');
+                el.removeAttribute('data-floor-name');
+                el.removeAttribute('data-amenity-name');
+                el.removeAttribute('data-unit-number');
+                el.removeAttribute('data-section-name');
+            });
+            
+            // Restore signature dates
+            document.querySelectorAll('.signature-date').forEach(el => {
+                el.textContent = el.textContent.replace(/\d{1,2}\/\d{1,2}\/\d{4}/g, '___________');
+            });
+            
+            // Hide generated file number if it was empty
+            const fileNum = document.getElementById('file-number').value;
+            if (!fileNum || fileNum === '0') {
+                document.getElementById('generated-file-number').style.display = 'none';
+            }
+            
+            // Restore method selector visibility
+            if (currentDeedType === 'transfer') {
+                document.getElementById('method-selector').style.display = 'block';
+            }
+            
+            // Restore calculation method visibility (only show active one)
+            document.querySelectorAll('.calculation-method').forEach(method => {
+                if (!method.classList.contains('active')) {
+                    method.style.display = 'none';
+                }
+            });
+            
+            // Restore part tabs functionality
+            document.querySelectorAll('.part-content').forEach((part, index) => {
+                // Only show active parts based on tab system
+                const parentLot = part.closest('.lot-section, .contractor-building-section');
+                if (parentLot) {
+                    // Check if this is the active part
+                    const partId = part.id;
+                    const matches = partId.match(/part-(\d+)$/);
+                    if (matches) {
+                        const partNum = matches[1];
+                        // Check if this is active tab (simplified - you may need to enhance this)
+                        const isActive = index === 0; // Default to first part
+                        part.style.display = isActive ? 'block' : 'none';
+                    }
+                }
+            });
+        }
+        
+        // Database Range Buttons Functionality
+        function initDatabaseButtons() {
+            // Save buttons
+            document.querySelectorAll('.database-save-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const field = this.getAttribute('data-field');
+                    const value = document.getElementById(field).value.trim();
+                    
+                    if (value) {
+                        if (!savedDatabaseValues[field]) {
+                            savedDatabaseValues[field] = [];
+                        }
+                        
+                        const timestamp = new Date().toLocaleString();
+                        savedDatabaseValues[field].push({
+                            value: value,
+                            timestamp: timestamp
+                        });
+                        
+                        // Keep only last 5 values per field
+                        if (savedDatabaseValues[field].length > 5) {
+                            savedDatabaseValues[field] = savedDatabaseValues[field].slice(-5);
+                        }
+                        
+                        localStorage.setItem('stampDutyDatabaseValues', JSON.stringify(savedDatabaseValues));
+                        updateSavedDatabaseDisplay();
+                        alert('Value saved successfully!');
+                    } else {
+                        alert('Please enter a value first.');
+                    }
+                });
+            });
+            
+            // Clear buttons
+            document.querySelectorAll('.database-clear-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const field = this.getAttribute('data-field');
+                    document.getElementById(field).value = '';
+                    alert('Value cleared.');
+                });
+            });
+            
+            // Load buttons
+            document.querySelectorAll('.database-load-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const field = this.getAttribute('data-field');
+                    showDatabaseDropdown(field, e);
+                });
+            });
+        }
+        
+        // Update saved database values display
+        function updateSavedDatabaseDisplay() {
+            const container = document.getElementById('saved-database-list');
+            const displaySection = document.getElementById('saved-database-values');
+            
+            let hasSavedValues = false;
+            let html = '';
+            
+            // Check each field for saved values
+            Object.keys(savedDatabaseValues).forEach(field => {
+                const values = savedDatabaseValues[field];
+                if (values && values.length > 0) {
+                    hasSavedValues = true;
+                    html += `<div class="saved-database-item">
+                        <div class="saved-database-header">
+                            <strong>${field === 'serial-number' ? 'Serial Number' : 'Database Range Value'}</strong>
+                        </div>`;
+                    
+                    values.forEach((item, index) => {
+                        html += `
+                        <div class="saved-database-text">
+                            ${item.value}
+                            <span class="saved-database-time">${item.timestamp}</span>
+                        </div>
+                        <div class="saved-database-actions">
+                            <button class="load-saved-database-btn" onclick="loadDatabaseValue('${field}', ${index})">
+                                <i class="fas fa-edit"></i> Load
+                            </button>
+                            <button class="delete-saved-database-btn" onclick="deleteDatabaseValue('${field}', ${index})">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>`;
+                    });
+                    
+                    html += '</div>';
+                }
+            });
+            
+            if (hasSavedValues) {
+                container.innerHTML = html;
+                displaySection.style.display = 'block';
+            } else {
+                container.innerHTML = '<div class="saved-database-item">No saved values yet.</div>';
+                displaySection.style.display = 'none';
+            }
+        }
+        
+        // Load database value
+        function loadDatabaseValue(field, index) {
+            if (savedDatabaseValues[field] && savedDatabaseValues[field][index]) {
+                document.getElementById(field).value = savedDatabaseValues[field][index].value;
+                alert('Value loaded successfully!');
+            }
+        }
+        
+        // Delete database value
+        function deleteDatabaseValue(field, index) {
+            if (confirm('Are you sure you want to delete this saved value?')) {
+                if (savedDatabaseValues[field]) {
+                    savedDatabaseValues[field].splice(index, 1);
+                    
+                    // If array is empty, remove the field
+                    if (savedDatabaseValues[field].length === 0) {
+                        delete savedDatabaseValues[field];
+                    }
+                    
+                    localStorage.setItem('stampDutyDatabaseValues', JSON.stringify(savedDatabaseValues));
+                    updateSavedDatabaseDisplay();
+                    alert('Value deleted successfully!');
+                }
+            }
+        }
+        
+        // Show database dropdown
+        function showDatabaseDropdown(field, e) {
+            const values = savedDatabaseValues[field];
+            if (!values || values.length === 0) {
+                alert('No saved values found for this field.');
+                return;
+            }
+            
+            // Create dropdown
+            const dropdown = document.createElement('div');
+            dropdown.className = 'saved-descriptions-dropdown';
+            dropdown.id = 'database-dropdown-' + field;
+            dropdown.innerHTML = values.map((item, index) => `
+                <div class="saved-desc-dropdown-item" onclick="selectDatabaseValue('${field}', ${index}, '${item.value}')">
+                    <strong>${item.timestamp}</strong><br>
+                    ${item.value}
+                </div>
+            `).join('');
+            
+            // Position and show dropdown
+            dropdown.style.display = 'block';
+            dropdown.style.left = e.target.offsetLeft + 'px';
+            dropdown.style.top = (e.target.offsetTop + e.target.offsetHeight) + 'px';
+            
+            document.body.appendChild(dropdown);
+            
+            // Close dropdown when clicking outside
+            setTimeout(() => {
+                const closeDropdown = function(e) {
+                    if (!dropdown.contains(e.target) && e.target !== document.querySelector(`[data-field="${field}"]`)) {
+                        dropdown.remove();
+                        document.removeEventListener('click', closeDropdown);
+                    }
+                };
+                document.addEventListener('click', closeDropdown);
+            }, 100);
+        }
+        
+        // Select database value from dropdown
+        function selectDatabaseValue(field, index, value) {
+            document.getElementById(field).value = value;
+            const dropdown = document.getElementById('database-dropdown-' + field);
+            if (dropdown) dropdown.remove();
+            alert('Value loaded successfully!');
+        }
+        
+        // Function to initialize gift date inputs
+        function initializeGiftDateInputs() {
+            // Set default dates
+            const today = new Date().toISOString().split('T')[0];
+            
+            // Scenario 1: Set default gift date to today
+            document.getElementById('gift-date-input-s1').value = today;
+            
+            // Scenario 2: Set default dates
+            document.getElementById('date-input-a-s2').value = today;
+            document.getElementById('gift-date-input-s2').value = today;
+            
+            // Add event listeners to acquisition dates to update the (A) dates
+            document.getElementById('gift-land-date-s1').addEventListener('change', function() {
+                if (this.value) {
+                    document.getElementById('date-input-a-s1').value = this.value;
+                }
+            });
+            
+            document.getElementById('gift-land-date-s2').addEventListener('change', function() {
+                if (this.value) {
+                    document.getElementById('date-input-a-s2').value = this.value;
+                    updateAddAfterDate(this.value);
+                }
+            });
+            
+            // Add event listeners to all date inputs to trigger calculation
+            document.querySelectorAll('.gift-date-input').forEach(input => {
+                input.addEventListener('change', calculateStampDuty);
+            });
+            
+            // Initialize the "Add after" date display
+            const initialLandDate = document.getElementById('gift-land-date-s2').value;
+            if (initialLandDate) {
+                updateAddAfterDate(initialLandDate);
+            }
+        }
+        
+        // Function to update the "Add after" date in scenario 2
+        function updateAddAfterDate(dateString) {
+            if (dateString) {
+                const formattedDate = formatDateDDMMYYYY(new Date(dateString));
+                document.getElementById('add-after-date-h5-s2').innerHTML = 
+                    `Add (After ${formattedDate} and prior to the date of such property gifted):`;
+            }
+        }
+        
+        // Function to clear file number
+        function clearFileNumber() {
+            document.getElementById('file-number').value = '';
+            document.getElementById('generated-file-number').style.display = 'none';
+            document.getElementById('file-number-display').textContent = '';
+            alert('File number cleared.');
+        }
+        
+        // Function to clear location
+        function clearLocation() {
+            // Clear all location fields
+            document.getElementById('latitude').value = '';
+            document.getElementById('longitude').value = '';
+            document.getElementById('property-address').value = '';
+            document.getElementById('google-maps-url').value = '';
+            document.getElementById('location-search').value = '';
+            
+            // Reset map to default location (Colombo, Sri Lanka)
+            const defaultLat = 6.9271;
+            const defaultLng = 79.8612;
+            map.setView([defaultLat, defaultLng], 13);
+            marker.setLatLng([defaultLat, defaultLng]);
+            
+            alert('Location data cleared.');
+        }
+        
+        // Function to update gift date displays
+        function updateGiftDateDisplays() {
+            // Update date displays for scenario 2
+            const dateA2 = document.getElementById('date-input-a-s2').value;
+            const giftDate2 = document.getElementById('gift-date-input-s2').value;
+            
+            if (dateA2) {
+                const dateA2Obj = new Date(dateA2);
+            }
+            
+            if (giftDate2) {
+                const giftDate2Obj = new Date(giftDate2);
+            }
+        }
+        
+        // Helper function to format date as DD.MM.YYYY
+        function formatDateDDMMYYYY(date) {
+            if (!date || isNaN(date.getTime())) return 'DD.MM.YYYY';
+            
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            
+            return `${day}.${month}.${year}`;
+        }
+        
+        function selectCalculationMethod(method) {
+            useCalculatedValue = (method === 'calculated');
+            
+            // Update UI
+            document.getElementById('toggle-calculated').classList.toggle('active', useCalculatedValue);
+            document.getElementById('toggle-manual').classList.toggle('active', !useCalculatedValue);
+            
+            // Show/hide checkmarks
+            document.querySelector('#toggle-calculated .fa-check').style.display = useCalculatedValue ? 'block' : 'none';
+            document.querySelector('#toggle-manual .fa-check').style.display = !useCalculatedValue ? 'block' : 'none';
+            
+            // Update selected method display
+            if (useCalculatedValue) {
+                document.getElementById('selected-method').textContent = '(Calculated by Method)';
+                document.getElementById('selected-result-value').textContent = 
+                    `Rs. ${Math.round(calculatedPropertyValue).toLocaleString('en-LK')}`;
+            } else {
+                document.getElementById('selected-method').textContent = '(Manual Override)';
+                document.getElementById('selected-result-value').textContent = 
+                    `Rs. ${Math.round(manualPropertyValue).toLocaleString('en-LK')}`;
+            }
+            
+            // Recalculate stamp duty with selected value
+            calculateStampDuty();
+        }
+        
+        // Update saved descriptions display
+        function updateSavedDescriptionsDisplay() {
+            const container = document.getElementById('saved-descriptions-list');
+            if (savedDescriptions.length === 0) {
+                container.innerHTML = '<div class="saved-desc-item">No saved descriptions yet.</div>';
+                return;
+            }
+            
+            container.innerHTML = savedDescriptions.map((desc, index) => `
+                <div class="saved-desc-item">
+                    <div class="saved-desc-header">
+                        <strong>Description ${index + 1}</strong>
+                        <span class="saved-desc-time">${desc.timestamp}</span>
+                    </div>
+                    <div class="saved-desc-text">${desc.text.substring(0, 200)}${desc.text.length > 200 ? '...' : ''}</div>
+                    <div class="saved-desc-actions">
+                        <button class="load-saved-desc-btn" onclick="loadSavedDescription(${index})">
+                            <i class="fas fa-edit"></i> Load
+                        </button>
+                        <button class="delete-saved-desc-btn" onclick="deleteSavedDescription(${index})">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Load saved description
+        function loadSavedDescription(index) {
+            document.getElementById('description').value = savedDescriptions[index].text;
+            
+            // Update word count
+            const wordCount = savedDescriptions[index].text.trim().split(/\s+/).length;
+            document.getElementById('word-count-number').textContent = wordCount;
+            
+            alert('Description loaded successfully!');
+        }
+        
+        // Delete saved description
+        function deleteSavedDescription(index) {
+            if (confirm('Are you sure you want to delete this description?')) {
+                savedDescriptions.splice(index, 1);
+                localStorage.setItem('stampDutyDescriptions', JSON.stringify(savedDescriptions));
+                updateSavedDescriptionsDisplay();
+                alert('Description deleted successfully!');
+            }
+        }
+        
+        // Load saved descriptions dropdown
+        document.getElementById('load-desc-btn').addEventListener('click', function(e) {
+            const dropdown = document.getElementById('saved-descriptions-dropdown');
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+                return;
+            }
+            
+            if (savedDescriptions.length === 0) {
+                dropdown.innerHTML = '<div class="saved-desc-dropdown-item">No saved descriptions</div>';
+            } else {
+                dropdown.innerHTML = savedDescriptions.map((desc, index) => `
+                    <div class="saved-desc-dropdown-item" onclick="loadSavedDescriptionFromDropdown(${index})">
+                        <strong>${desc.timestamp}</strong><br>
+                        ${desc.text.substring(0, 50)}${desc.text.length > 50 ? '...' : ''}
+                        <small>(${desc.wordCount} words)</small>
+                    </div>
+                `).join('');
+            }
+            
+            dropdown.style.display = 'block';
+            dropdown.style.left = e.target.offsetLeft + 'px';
+            dropdown.style.top = (e.target.offsetTop + e.target.offsetHeight) + 'px';
+            
+            // Close dropdown when clicking outside
+            setTimeout(() => {
+                document.addEventListener('click', function closeDropdown(e) {
+                    if (!dropdown.contains(e.target) && e.target.id !== 'load-desc-btn') {
+                        dropdown.style.display = 'none';
+                        document.removeEventListener('click', closeDropdown);
+                    }
+                });
+            }, 100);
+        });
+        
+        function loadSavedDescriptionFromDropdown(index) {
+            document.getElementById('description').value = savedDescriptions[index].text;
+            document.getElementById('saved-descriptions-dropdown').style.display = 'none';
+            
+            // Update word count
+            const wordCount = savedDescriptions[index].text.trim().split(/\s+/).length;
+            document.getElementById('word-count-number').textContent = wordCount;
+            
+            alert('Description loaded successfully!');
+        }
+        
+        // Initialize OpenStreetMap
+        function initMap() {
+            // Default to Colombo, Sri Lanka
+            const defaultLat = 6.9271;
+            const defaultLng = 79.8612;
+            
+            map = L.map('map-container').setView([defaultLat, defaultLng], 13);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+            
+            // Add default marker
+            marker = L.marker([defaultLat, defaultLng], {draggable: true})
+                .addTo(map)
+                .bindPopup('Property Location')
+                .openPopup();
+            
+            // Update lat/long when marker is dragged
+            marker.on('dragend', function(e) {
+                const position = marker.getLatLng();
+                document.getElementById('latitude').value = position.lat.toFixed(6);
+                document.getElementById('longitude').value = position.lng.toFixed(6);
+                updateAddressFromCoordinates(position.lat, position.lng);
+            });
+            
+            // Initialize coordinates display
+            document.getElementById('latitude').value = defaultLat.toFixed(6);
+            document.getElementById('longitude').value = defaultLng.toFixed(6);
+        }
+        
+        // Initialize location search functionality
+        function initLocationSearch() {
+            const searchInput = document.getElementById('location-search');
+            const findLocationTab = document.getElementById('find-location-tab');
+            
+            // Search when Enter is pressed in search bar
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchLocation(this.value);
+                }
+            });
+            
+            // Search when Find Location tab is clicked and there's text in search
+            findLocationTab.addEventListener('click', function() {
+                if (searchInput.value.trim()) {
+                    searchLocation(searchInput.value);
+                }
+            });
+        }
+        
+        function searchLocation(query) {
+            if (!query) {
+                alert('Please enter a location to search.');
+                return;
+            }
+            
+            // Show loading
+            const searchInput = document.getElementById('location-search');
+            const originalValue = searchInput.value;
+            searchInput.value = 'Searching...';
+            
+            // Use OpenStreetMap Nominatim API
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    searchInput.value = originalValue;
+                    
+                    if (data.length > 0) {
+                        const result = data[0];
+                        const lat = parseFloat(result.lat);
+                        const lng = parseFloat(result.lon);
+                        
+                        // Update map
+                        map.setView([lat, lng], 15);
+                        marker.setLatLng([lat, lng]);
+                        
+                        // Update form fields
+                        document.getElementById('latitude').value = lat.toFixed(6);
+                        document.getElementById('longitude').value = lng.toFixed(6);
+                        document.getElementById('property-address').value = result.display_name;
+                        
+                        // Generate Google Maps URL
+                        document.getElementById('google-maps-url').value = `https://www.google.com/maps?q=${lat},${lng}`;
+                        
+                        alert(`Location found: ${result.display_name}`);
+                    } else {
+                        alert('Location not found. Please try a different search term.');
+                    }
+                })
+                .catch(error => {
+                    searchInput.value = originalValue;
+                    console.error('Error searching location:', error);
+                    alert('Error searching location. Please check your internet connection and try again.');
+                });
+        }
+        
+        function updateAddressFromCoordinates(lat, lng) {
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.display_name) {
+                        document.getElementById('property-address').value = data.display_name;
+                        document.getElementById('google-maps-url').value = `https://www.google.com/maps?q=${lat},${lng}`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error reverse geocoding:', error);
+                });
+        }
+        
+        // Find Location tab
+        document.getElementById('find-location-tab').addEventListener('click', function() {
+            // Activate this tab
+            document.querySelectorAll('.location-tab').forEach(tab => tab.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Focus on search bar
+            document.getElementById('location-search').focus();
+        });
+        
+        // Use current location
+        document.getElementById('current-location-tab').addEventListener('click', function() {
+            // Activate this tab
+            document.querySelectorAll('.location-tab').forEach(tab => tab.classList.remove('active'));
+            this.classList.add('active');
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    
+                    map.setView([lat, lng], 15);
+                    marker.setLatLng([lat, lng]);
+                    document.getElementById('latitude').value = lat.toFixed(6);
+                    document.getElementById('longitude').value = lng.toFixed(6);
+                    
+                    // Reverse geocode to get address
+                    updateAddressFromCoordinates(lat, lng);
+                }, function(error) {
+                    alert('Unable to get current location. Please make sure location services are enabled.');
+                });
+            } else {
+                alert('Geolocation is not supported by your browser');
+            }
+        });
+        
+        // Save location
+        document.getElementById('save-location-tab').addEventListener('click', function() {
+            // Activate this tab
+            document.querySelectorAll('.location-tab').forEach(tab => tab.classList.remove('active'));
+            this.classList.add('active');
+            
+            const lat = document.getElementById('latitude').value;
+            const lng = document.getElementById('longitude').value;
+            const address = document.getElementById('property-address').value;
+            
+            if (lat && lng) {
+                const name = prompt('Enter a name for this location:') || `Location ${savedLocations.length + 1}`;
+                
+                savedLocations.push({
+                    name: name,
+                    lat: lat,
+                    lng: lng,
+                    address: address,
+                    timestamp: new Date().toLocaleString()
+                });
+                
+                // Keep only last 10 locations
+                if (savedLocations.length > 10) {
+                    savedLocations = savedLocations.slice(-10);
+                }
+                
+                localStorage.setItem('stampDutyLocations', JSON.stringify(savedLocations));
+                alert('Location saved successfully!');
+            } else {
+                alert('Please enter coordinates first.');
+            }
+        });
+        
+        // Load saved locations
+        document.getElementById('load-location-tab').addEventListener('click', function(e) {
+            // Activate this tab
+            document.querySelectorAll('.location-tab').forEach(tab => tab.classList.remove('active'));
+            this.classList.add('active');
+            
+            const dropdown = document.getElementById('saved-locations-dropdown');
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+                return;
+            }
+            
+            if (savedLocations.length === 0) {
+                dropdown.innerHTML = '<div class="saved-location-dropdown-item">No saved locations</div>';
+            } else {
+                dropdown.innerHTML = savedLocations.map((loc, index) => `
+                    <div class="saved-location-dropdown-item" onclick="loadSavedLocation(${index})">
+                        <strong>${loc.name}</strong><br>
+                        ${loc.address ? loc.address.substring(0, 50) + (loc.address.length > 50 ? '...' : '') : 'No address'}
+                        <small>(${loc.timestamp})</small>
+                    </div>
+                `).join('');
+            }
+            
+            dropdown.style.display = 'block';
+            dropdown.style.left = e.target.offsetLeft + 'px';
+            dropdown.style.top = (e.target.offsetTop + e.target.offsetHeight) + 'px';
+            
+            // Close dropdown when clicking outside
+            setTimeout(() => {
+                document.addEventListener('click', function closeDropdown(e) {
+                    if (!dropdown.contains(e.target) && e.target.id !== 'load-location-tab') {
+                        dropdown.style.display = 'none';
+                        document.removeEventListener('click', closeDropdown);
+                    }
+                });
+            }, 100);
+        });
+        
+        function loadSavedLocation(index) {
+            const loc = savedLocations[index];
+            map.setView([loc.lat, loc.lng], 15);
+            marker.setLatLng([loc.lat, loc.lng]);
+            document.getElementById('latitude').value = loc.lat;
+            document.getElementById('longitude').value = loc.lng;
+            document.getElementById('property-address').value = loc.address || '';
+            document.getElementById('google-maps-url').value = `https://www.google.com/maps?q=${loc.lat},${loc.lng}`;
+            document.getElementById('saved-locations-dropdown').style.display = 'none';
+        }
+        
+        // Fixed Area Converter
+        function initAreaConverterFixed() {
+            // Define conversion factors (Sri Lankan units)
+            const conversionFactors = {
+                'perch': 272.25,      // 1 perch = 272.25 sq ft
+                'rood': 10890,        // 1 rood = 40 perch = 10890 sq ft
+                'acre': 43560,        // 1 acre = 160 perch = 43560 sq ft
+                'hectare': 107639.104, // 1 hectare = 107639.104 sq ft
+                'square-feet': 1      // Base unit
+            };
+            
+            // Get all area input elements
+            const areaInputs = {
+                'perch': document.getElementById('area-perch'),
+                'rood': document.getElementById('area-rood'),
+                'acre': document.getElementById('area-acre'),
+                'hectare': document.getElementById('area-hectare'),
+                'square-feet': document.getElementById('area-square-feet')
+            };
+            
+            // Function to convert from any unit to square feet
+            function toSquareFeet(value, unit) {
+                return value * conversionFactors[unit];
+            }
+            
+            // Function to convert from square feet to any unit
+            function fromSquareFeet(sqFeet, unit) {
+                return sqFeet / conversionFactors[unit];
+            }
+            
+            // Function to update all fields when one changes
+            function updateAllFields(changedUnit, changedValue) {
+                if (isUpdatingArea) return;
+                isUpdatingArea = true;
+                
+                // Convert the changed value to square feet
+                const sqFeet = toSquareFeet(changedValue, changedUnit);
+                
+                // Update all other fields
+                Object.keys(areaInputs).forEach(unit => {
+                    if (unit !== changedUnit) {
+                        const convertedValue = fromSquareFeet(sqFeet, unit);
+                        areaInputs[unit].value = convertedValue.toFixed(4);
+                    }
+                });
+                
+                isUpdatingArea = false;
+            }
+            
+            // Add event listeners to all area inputs
+            Object.keys(areaInputs).forEach(unit => {
+                const input = areaInputs[unit];
+                
+                input.addEventListener('input', function() {
+                    const value = parseFloat(this.value) || 0;
+                    updateAllFields(unit, value);
+                });
+                
+                // Also handle change event for when user clears the field
+                input.addEventListener('change', function() {
+                    if (this.value === '') {
+                        this.value = '0';
+                        updateAllFields(unit, 0);
+                    }
+                });
+            });
+            
+            // Reset area converter button
+            document.getElementById('reset-area-btn').addEventListener('click', function() {
+                isUpdatingArea = true;
+                Object.keys(areaInputs).forEach(unit => {
+                    areaInputs[unit].value = '0';
+                });
+                isUpdatingArea = false;
+            });
+            
+            // Test the converter with a sample value
+            setTimeout(() => {
+                if (areaInputs.perch.value === '0') {
+                    areaInputs.perch.value = '1';
+                    updateAllFields('perch', 1);
+                }
+            }, 100);
+        }
+        
+        // Comparison Method Functions
+        function addComparisonLot() {
+            comparisonLotCount++;
+            const lotId = comparisonLotCount;
+            comparisonLotParts[lotId] = [1];
+            comparisonPartCounts[lotId] = 1;
+            
+            const newLot = document.createElement('div');
+            newLot.className = 'lot-section';
+            newLot.id = `lot-${lotId}`;
+            newLot.innerHTML = `
+                <div class="lot-header">
+                    <h4>Land Lot ${lotId}</h4>
+                    <button class="remove-btn" onclick="removeLot(${lotId})">Remove</button>
+                </div>
+                
+                <div class="part-tabs" id="lot-${lotId}-parts">
+                    <div class="part-tab active" onclick="showPart(${lotId}, 1, 'comparison')">
+                        <div class="part-tab-content">
+                            Part 01
+                            <button class="remove-part-btn" onclick="removePart(${lotId}, 1, 'comparison')" title="Remove Part">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-part-btn" onclick="addPart(${lotId}, 'comparison')">
+                    <i class="fas fa-plus"></i> Add Part
+                </button>
+                
+                <div class="part-content active" id="lot-${lotId}-part-1">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="perch-value-${lotId}-1">Perch Value (Rs.)</label>
+                            <input type="number" id="perch-value-${lotId}-1" value="0" oninput="updateLotValue(${lotId}, 'comparison')">
+                        </div>
+                        <div class="input-group">
+                            <label for="extent-${lotId}-1">Extent (Perch)</label>
+                            <input type="number" id="extent-${lotId}-1" value="0" oninput="updateLotValue(${lotId}, 'comparison')">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Part Market Value: <span id="market-value-${lotId}-1">Rs. 0</span></label>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label>Total Lot Market Value: <span id="total-market-value-${lotId}">Rs. 0</span></label>
+                </div>
+            `;
+            document.getElementById('comparison-lots').appendChild(newLot);
+            calculateStampDuty();
+        }
+        
+        function removeLot(lotNumber) {
+            if (comparisonLotCount > 1) {
+                const lot = document.getElementById(`lot-${lotNumber}`);
+                lot.remove();
+                comparisonLotCount--;
+                delete comparisonLotParts[lotNumber];
+                delete comparisonPartCounts[lotNumber];
+                calculateStampDuty();
+            }
+        }
+        
+        function addPart(lotId, method) {
+            if (method === 'comparison') {
+                const partCount = comparisonPartCounts[lotId] + 1;
+                comparisonPartCounts[lotId] = partCount;
+                comparisonLotParts[lotId].push(partCount);
+                
+                // Add tab
+                const tabsContainer = document.getElementById(`lot-${lotId}-parts`);
+                const newTab = document.createElement('div');
+                newTab.className = 'part-tab';
+                newTab.innerHTML = `
+                    <div class="part-tab-content">
+                        Part ${partCount.toString().padStart(2, '0')}
+                        <button class="remove-part-btn" onclick="removePart(${lotId}, ${partCount}, 'comparison')" title="Remove Part">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                newTab.onclick = function() { showPart(lotId, partCount, 'comparison'); };
+                tabsContainer.appendChild(newTab);
+                
+                // Add content
+                const partContent = document.createElement('div');
+                partContent.className = 'part-content';
+                partContent.id = `lot-${lotId}-part-${partCount}`;
+                partContent.style.display = 'none';
+                partContent.innerHTML = `
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="perch-value-${lotId}-${partCount}">Perch Value (Rs.)</label>
+                            <input type="number" id="perch-value-${lotId}-${partCount}" value="0" oninput="updateLotValue(${lotId}, 'comparison')">
+                        </div>
+                        <div class="input-group">
+                            <label for="extent-${lotId}-${partCount}">Extent (Perch)</label>
+                            <input type="number" id="extent-${lotId}-${partCount}" value="0" oninput="updateLotValue(${lotId}, 'comparison')">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Part Market Value: <span id="market-value-${lotId}-${partCount}">Rs. 0</span></label>
+                    </div>
+                `;
+                
+                // Insert after the part tabs container
+                const lotDiv = document.getElementById(`lot-${lotId}`);
+                tabsContainer.parentNode.insertBefore(partContent, tabsContainer.nextSibling.nextSibling);
+                
+                calculateStampDuty();
+            } else if (method === 'contractor') {
+                const partCount = contractorPartCounts[lotId] + 1;
+                contractorPartCounts[lotId] = partCount;
+                contractorLotParts[lotId].push(partCount);
+                
+                // Add tab
+                const tabsContainer = document.getElementById(`contractor-land-${lotId}-parts`);
+                const newTab = document.createElement('div');
+                newTab.className = 'part-tab';
+                newTab.innerHTML = `
+                    <div class="part-tab-content">
+                        Part ${partCount.toString().padStart(2, '0')}
+                        <button class="remove-part-btn" onclick="removePart(${lotId}, ${partCount}, 'contractor')" title="Remove Part">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                newTab.onclick = function() { showPart(lotId, partCount, 'contractor'); };
+                tabsContainer.appendChild(newTab);
+                
+                // Add content
+                const partContent = document.createElement('div');
+                partContent.className = 'part-content';
+                partContent.id = `contractor-land-${lotId}-part-${partCount}`;
+                partContent.style.display = 'none';
+                partContent.innerHTML = `
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Perch Value (Rs.)</label>
+                            <input type="number" id="c-perch-value-${lotId}-${partCount}" value="0" oninput="updateContractorLotValue(${lotId})">
+                        </div>
+                        <div class="input-group">
+                            <label>Extent (Perch)</label>
+                            <input type="number" id="c-extent-${lotId}-${partCount}" value="0" oninput="updateContractorLotValue(${lotId})">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Part Market Value: <span id="c-market-value-${lotId}-${partCount}">Rs. 0</span></label>
+                    </div>
+                `;
+                
+                // Insert after the part tabs container
+                const lotDiv = document.getElementById(`contractor-land-${lotId}`);
+                tabsContainer.parentNode.insertBefore(partContent, tabsContainer.nextSibling.nextSibling);
+                
+                calculateStampDuty();
+            }
+        }
+        
+        function removePart(lotId, partNumber, method) {
+            if (method === 'comparison') {
+                // Check if we have more than 1 part
+                if (comparisonLotParts[lotId].length <= 1) {
+                    alert('Each lot must have at least one part.');
+                    return;
+                }
+                
+                // Remove from array
+                const index = comparisonLotParts[lotId].indexOf(partNumber);
+                if (index > -1) {
+                    comparisonLotParts[lotId].splice(index, 1);
+                }
+                
+                // Remove the part content div
+                const partContent = document.getElementById(`lot-${lotId}-part-${partNumber}`);
+                if (partContent) {
+                    partContent.remove();
+                }
+                
+                // Remove the tab
+                const tabsContainer = document.getElementById(`lot-${lotId}-parts`);
+                const tabToRemove = Array.from(tabsContainer.children).find(tab => 
+                    tab.querySelector('.part-tab-content').textContent.includes(`Part ${partNumber.toString().padStart(2, '0')}`));
+                
+                if (tabToRemove) {
+                    tabToRemove.remove();
+                }
+                
+                // If we removed the active part, activate the first part
+                if (comparisonLotParts[lotId].length > 0) {
+                    showPart(lotId, comparisonLotParts[lotId][0], 'comparison');
+                }
+                
+                calculateStampDuty();
+            } else if (method === 'contractor') {
+                // Check if we have more than 1 part
+                if (contractorLotParts[lotId].length <= 1) {
+                    alert('Each lot must have at least one part.');
+                    return;
+                }
+                
+                // Remove from array
+                const index = contractorLotParts[lotId].indexOf(partNumber);
+                if (index > -1) {
+                    contractorLotParts[lotId].splice(index, 1);
+                }
+                
+                // Remove the part content div
+                const partContent = document.getElementById(`contractor-land-${lotId}-part-${partNumber}`);
+                if (partContent) {
+                    partContent.remove();
+                }
+                
+                // Remove the tab
+                const tabsContainer = document.getElementById(`contractor-land-${lotId}-parts`);
+                const tabToRemove = Array.from(tabsContainer.children).find(tab => 
+                    tab.querySelector('.part-tab-content').textContent.includes(`Part ${partNumber.toString().padStart(2, '0')}`));
+                
+                if (tabToRemove) {
+                    tabToRemove.remove();
+                }
+                
+                // If we removed the active part, activate the first part
+                if (contractorLotParts[lotId].length > 0) {
+                    showPart(lotId, contractorLotParts[lotId][0], 'contractor');
+                }
+                
+                calculateStampDuty();
+            }
+        }
+        
+        function showPart(lotId, partNumber, method) {
+            if (method === 'comparison') {
+                // Hide all parts for this lot
+                comparisonLotParts[lotId].forEach(part => {
+                    const partDiv = document.getElementById(`lot-${lotId}-part-${part}`);
+                    if (partDiv) partDiv.style.display = 'none';
+                });
+                
+                // Remove active class from all tabs
+                const tabs = document.querySelectorAll(`#lot-${lotId}-parts .part-tab`);
+                tabs.forEach(tab => tab.classList.remove('active'));
+                
+                // Show selected part
+                const selectedPart = document.getElementById(`lot-${lotId}-part-${partNumber}`);
+                if (selectedPart) selectedPart.style.display = 'block';
+                
+                // Activate selected tab
+                const tabIndex = Array.from(tabs).findIndex(tab => 
+                    tab.textContent.includes(`Part ${partNumber.toString().padStart(2, '0')}`));
+                if (tabIndex > -1) tabs[tabIndex].classList.add('active');
+            } else if (method === 'contractor') {
+                // Hide all parts for this lot
+                contractorLotParts[lotId].forEach(part => {
+                    const partDiv = document.getElementById(`contractor-land-${lotId}-part-${part}`);
+                    if (partDiv) partDiv.style.display = 'none';
+                });
+                
+                // Remove active class from all tabs
+                const tabs = document.querySelectorAll(`#contractor-land-${lotId}-parts .part-tab`);
+                tabs.forEach(tab => tab.classList.remove('active'));
+                
+                // Show selected part
+                const selectedPart = document.getElementById(`contractor-land-${lotId}-part-${partNumber}`);
+                if (selectedPart) selectedPart.style.display = 'block';
+                
+                // Activate selected tab
+                const tabIndex = Array.from(tabs).findIndex(tab => 
+                    tab.textContent.includes(`Part ${partNumber.toString().padStart(2, '0')}`));
+                if (tabIndex > -1) tabs[tabIndex].classList.add('active');
+            }
+        }
+        
+        function updateLotValue(lotId, method) {
+            let totalLotValue = 0;
+            
+            if (method === 'comparison') {
+                comparisonLotParts[lotId].forEach(partNumber => {
+                    const perchValue = parseFloat(document.getElementById(`perch-value-${lotId}-${partNumber}`).value) || 0;
+                    const extent = parseFloat(document.getElementById(`extent-${lotId}-${partNumber}`).value) || 0;
+                    const partValue = perchValue * extent;
+                    
+                    document.getElementById(`market-value-${lotId}-${partNumber}`).textContent = `Rs. ${partValue.toLocaleString('en-LK')}`;
+                    totalLotValue += partValue;
+                });
+                
+                document.getElementById(`total-market-value-${lotId}`).textContent = `Rs. ${totalLotValue.toLocaleString('en-LK')}`;
+            }
+            
+            calculateStampDuty();
+        }
+        
+        function updateContractorLotValue(lotId) {
+            let totalLotValue = 0;
+            
+            contractorLotParts[lotId].forEach(partNumber => {
+                const perchValue = parseFloat(document.getElementById(`c-perch-value-${lotId}-${partNumber}`).value) || 0;
+                const extent = parseFloat(document.getElementById(`c-extent-${lotId}-${partNumber}`).value) || 0;
+                const partValue = perchValue * extent;
+                
+                document.getElementById(`c-market-value-${lotId}-${partNumber}`).textContent = `Rs. ${partValue.toLocaleString('en-LK')}`;
+                totalLotValue += partValue;
+            });
+            
+            document.getElementById(`c-total-market-value-${lotId}`).textContent = `Rs. ${totalLotValue.toLocaleString('en-LK')}`;
+            calculateStampDuty();
+        }
+        
+        // Contractors Method Functions
+        function addContractorLand() {
+            contractorLandCount++;
+            const lotId = contractorLandCount;
+            contractorLotParts[lotId] = [1];
+            contractorPartCounts[lotId] = 1;
+            
+            const newLand = document.createElement('div');
+            newLand.className = 'lot-section';
+            newLand.id = `contractor-land-${lotId}`;
+            newLand.innerHTML = `
+                <div class="lot-header">
+                    <h5>Land Lot ${lotId}</h5>
+                    <button class="remove-btn" onclick="removeContractorLand(${lotId})">Remove</button>
+                </div>
+                
+                <div class="part-tabs" id="contractor-land-${lotId}-parts">
+                    <div class="part-tab active" onclick="showPart(${lotId}, 1, 'contractor')">
+                        <div class="part-tab-content">
+                            Part 01
+                            <button class="remove-part-btn" onclick="removePart(${lotId}, 1, 'contractor')" title="Remove Part">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-part-btn" onclick="addPart(${lotId}, 'contractor')">
+                    <i class="fas fa-plus"></i> Add Part
+                </button>
+                
+                <div class="part-content active" id="contractor-land-${lotId}-part-1">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Perch Value (Rs.)</label>
+                            <input type="number" id="c-perch-value-${lotId}-1" value="0" oninput="updateContractorLotValue(${lotId})">
+                        </div>
+                        <div class="input-group">
+                            <label>Extent (Perch)</label>
+                            <input type="number" id="c-extent-${lotId}-1" value="0" oninput="updateContractorLotValue(${lotId})">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Part Market Value: <span id="c-market-value-${lotId}-1">Rs. 0</span></label>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label>Total Lot Market Value: <span id="c-total-market-value-${lotId}">Rs. 0</span></label>
+                </div>
+            `;
+            document.getElementById('contractor-land-lots').appendChild(newLand);
+            calculateStampDuty();
+        }
+        
+        function removeContractorLand(landNumber) {
+            if (contractorLandCount > 1) {
+                document.getElementById(`contractor-land-${landNumber}`).remove();
+                contractorLandCount--;
+                delete contractorLotParts[landNumber];
+                delete contractorPartCounts[landNumber];
+                calculateStampDuty();
+            }
+        }
+        
+        // FIXED: Proper building removal function
+        function removeContractorBuilding(buildingNumber) {
+            if (contractorBuildingCount > 1) {
+                document.getElementById(`building-${buildingNumber}`).remove();
+                contractorBuildingCount--;
+                delete buildingFloorCounts[buildingNumber];
+                delete buildingAmenityCounts[buildingNumber]; // NEW: Clean up amenities
+                calculateStampDuty();
+                
+                // Update remaining building numbers
+                updateBuildingNumbers();
+            } else {
+                alert('Cannot remove the only building. There must be at least one building.');
+            }
+        }
+        
+        // NEW: Update building numbers after removal
+        function updateBuildingNumbers() {
+            const buildings = document.querySelectorAll('.contractor-building-section');
+            buildings.forEach((building, index) => {
+                const newNumber = index + 1;
+                building.id = `building-${newNumber}`;
+                building.querySelector('h5').textContent = `Building ${newNumber}`;
+                
+                // Update all input IDs for floors
+                building.querySelectorAll('input[id^="construction-cost-b"]').forEach(input => {
+                    const oldId = input.id;
+                    const matches = oldId.match(/construction-cost-b(\d+)-f(\d+)/);
+                    if (matches) {
+                        input.id = `construction-cost-b${newNumber}-f${matches[2]}`;
+                    }
+                });
+                
+                building.querySelectorAll('input[id^="floor-area-b"]').forEach(input => {
+                    const oldId = input.id;
+                    const matches = oldId.match(/floor-area-b(\d+)-f(\d+)/);
+                    if (matches) {
+                        input.id = `floor-area-b${newNumber}-f${matches[2]}`;
+                    }
+                });
+                
+                // Update building depreciation ID
+                const depInput = building.querySelector(`input[id^="building-depreciation-"]`);
+                if (depInput) {
+                    const oldId = depInput.id;
+                    const matches = oldId.match(/building-depreciation-(\d+)/);
+                    if (matches) {
+                        depInput.id = `building-depreciation-${newNumber}`;
+                    }
+                }
+                
+                // NEW: Update amenities container and rows
+                const amenitiesContainer = building.querySelector(`[id^="building-amenities-"]`);
+                if (amenitiesContainer) {
+                    const oldContainerId = amenitiesContainer.id;
+                    amenitiesContainer.id = `building-amenities-${newNumber}`;
+                    
+                    // Update each amenity row
+                    const amenityRows = amenitiesContainer.querySelectorAll('.amenity-row');
+                    amenityRows.forEach((row, aIndex) => {
+                        const newAmenityNumber = aIndex + 1;
+                        row.id = `building-${newNumber}-amenity-${newAmenityNumber}`;
+                        
+                        // Update type input
+                        const typeInput = row.querySelector('input[id^="amenity-type-b"]');
+                        if (typeInput) {
+                            const oldTypeId = typeInput.id;
+                            const matches = oldTypeId.match(/amenity-type-b\d+-a(\d+)/);
+                            if (matches) {
+                                typeInput.id = `amenity-type-b${newNumber}-a${newAmenityNumber}`;
+                            }
+                        }
+                        
+                        // Update value input
+                        const valueInput = row.querySelector('input[id^="amenity-value-b"]');
+                        if (valueInput) {
+                            const oldValueId = valueInput.id;
+                            const matches = oldValueId.match(/amenity-value-b\d+-a(\d+)/);
+                            if (matches) {
+                                valueInput.id = `amenity-value-b${newNumber}-a${newAmenityNumber}`;
+                            }
+                        }
+                        
+                        // Update remove button onclick
+                        const removeBtn = row.querySelector('.remove-btn');
+                        if (removeBtn) {
+                            removeBtn.setAttribute('onclick', `removeBuildingAmenity(${newNumber}, ${newAmenityNumber})`);
+                        }
+                    });
+                    
+                    // Update Add Amenity button onclick
+                    const addBtn = amenitiesContainer.nextElementSibling; // the Add Amenity button
+                    if (addBtn && addBtn.classList.contains('add-btn')) {
+                        addBtn.setAttribute('onclick', `addBuildingAmenity(${newNumber})`);
+                    }
+                }
+                
+                // Update remove button onclick
+                const removeBtn = building.querySelector('.contractor-building-header .remove-btn');
+                if (removeBtn) {
+                    removeBtn.onclick = function() { removeContractorBuilding(newNumber); };
+                }
+            });
+        }
+        
+        // FIXED: Add building floor with proper naming and remove button
+        function addBuildingFloor(buildingId) {
+            if (!buildingFloorCounts[buildingId]) {
+                buildingFloorCounts[buildingId] = 0;
+            }
+            buildingFloorCounts[buildingId]++;
+            const floorCount = buildingFloorCounts[buildingId];
+            
+            // Determine floor name
+            let floorName;
+            if (floorCount === 1) {
+                floorName = "Ground Floor";
+            } else if (floorCount === 2) {
+                floorName = "1st Floor";
+            } else if (floorCount === 3) {
+                floorName = "2nd Floor";
+            } else {
+                floorName = `${floorCount - 1}th Floor`;
+            }
+            
+            const floorDiv = document.createElement('div');
+            floorDiv.className = 'floor-row';
+            floorDiv.id = `building-${buildingId}-floor-${floorCount}`;
+            floorDiv.innerHTML = `
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Construction Cost/Sq.Ft. (Rs.) - ${floorName}</label>
+                        <input type="number" id="construction-cost-b${buildingId}-f${floorCount}" value="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Area (Sq.Ft.) - ${floorName}</label>
+                        <input type="number" id="floor-area-b${buildingId}-f${floorCount}" value="0">
+                    </div>
+                    <div class="input-group" style="flex: 0 0 auto; margin-top: 10px;">
+                        <button class="remove-btn" onclick="removeBuildingFloor(${buildingId}, ${floorCount})" style="padding: 8px 12px;">
+                            Remove Floor
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.getElementById(`building-floors-${buildingId}`).appendChild(floorDiv);
+            calculateStampDuty();
+        }
+        
+        // NEW: Remove specific floor
+        function removeBuildingFloor(buildingId, floorNumber) {
+            const floorDiv = document.getElementById(`building-${buildingId}-floor-${floorNumber}`);
+            if (floorDiv) {
+                if (buildingFloorCounts[buildingId] > 1) {
+                    floorDiv.remove();
+                    buildingFloorCounts[buildingId]--;
+                    
+                    // Renumber remaining floors
+                    renumberBuildingFloors(buildingId);
+                    calculateStampDuty();
+                } else {
+                    alert('Cannot remove the only floor. Each building must have at least one floor.');
+                }
+            }
+        }
+        
+        // NEW: Renumber floors after removal
+        function renumberBuildingFloors(buildingId) {
+            const floorsContainer = document.getElementById(`building-floors-${buildingId}`);
+            const floorRows = floorsContainer.querySelectorAll('.floor-row');
+            
+            // Clear and rebuild with correct numbering
+            floorsContainer.innerHTML = '';
+            buildingFloorCounts[buildingId] = floorRows.length;
+            
+            // Rebuild floors with correct names
+            floorRows.forEach((floorRow, index) => {
+                const floorNumber = index + 1;
+                let floorName;
+                if (floorNumber === 1) {
+                    floorName = "Ground Floor";
+                } else if (floorNumber === 2) {
+                    floorName = "1st Floor";
+                } else if (floorNumber === 3) {
+                    floorName = "2nd Floor";
+                } else {
+                    floorName = `${floorNumber - 1}th Floor`;
+                }
+                
+                const floorDiv = document.createElement('div');
+                floorDiv.className = 'floor-row';
+                floorDiv.id = `building-${buildingId}-floor-${floorNumber}`;
+                floorDiv.innerHTML = `
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Construction Cost/Sq.Ft. (Rs.) - ${floorName}</label>
+                            <input type="number" id="construction-cost-b${buildingId}-f${floorNumber}" value="0">
+                        </div>
+                        <div class="input-group">
+                            <label>Area (Sq.Ft.) - ${floorName}</label>
+                            <input type="number" id="floor-area-b${buildingId}-f${floorNumber}" value="0">
+                        </div>
+                        <div class="input-group" style="flex: 0 0 auto; margin-top: 10px;">
+                            <button class="remove-btn" onclick="removeBuildingFloor(${buildingId}, ${floorNumber})" style="padding: 8px 12px;">
+                                Remove Floor
+                            </button>
+                        </div>
+                    </div>
+                `;
+                floorsContainer.appendChild(floorDiv);
+            });
+        }
+        
+        // NEW: Add building amenity
+        function addBuildingAmenity(buildingId) {
+            if (!buildingAmenityCounts[buildingId]) {
+                buildingAmenityCounts[buildingId] = 0;
+            }
+            buildingAmenityCounts[buildingId]++;
+            const amenityNumber = buildingAmenityCounts[buildingId];
+            
+            const amenitiesContainer = document.getElementById(`building-amenities-${buildingId}`);
+            const amenityDiv = document.createElement('div');
+            amenityDiv.className = 'amenity-row';
+            amenityDiv.id = `building-${buildingId}-amenity-${amenityNumber}`;
+            amenityDiv.innerHTML = `
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Amenity Type</label>
+                        <input type="text" id="amenity-type-b${buildingId}-a${amenityNumber}" placeholder="e.g., Swimming Pool">
+                    </div>
+                    <div class="input-group">
+                        <label>Value (Rs.)</label>
+                        <input type="number" id="amenity-value-b${buildingId}-a${amenityNumber}" value="0">
+                    </div>
+                    <div class="input-group" style="flex: 0 0 auto; margin-top: 10px;">
+                        <button class="remove-btn" onclick="removeBuildingAmenity(${buildingId}, ${amenityNumber})" style="padding: 8px 12px;">
+                            Remove Amenity
+                        </button>
+                    </div>
+                </div>
+            `;
+            amenitiesContainer.appendChild(amenityDiv);
+            calculateStampDuty();
+        }
+        
+        // NEW: Remove building amenity
+        function removeBuildingAmenity(buildingId, amenityNumber) {
+            const amenityDiv = document.getElementById(`building-${buildingId}-amenity-${amenityNumber}`);
+            if (amenityDiv) {
+                if (buildingAmenityCounts[buildingId] > 1) {
+                    amenityDiv.remove();
+                    buildingAmenityCounts[buildingId]--;
+                    // Renumber remaining amenities
+                    renumberBuildingAmenities(buildingId);
+                    calculateStampDuty();
+                } else {
+                    // If only one, just clear it? Actually we allow removal but then no amenities. Set count to 0.
+                    amenityDiv.remove();
+                    buildingAmenityCounts[buildingId] = 0;
+                    calculateStampDuty();
+                }
+            }
+        }
+        
+        // NEW: Renumber amenities after removal
+        function renumberBuildingAmenities(buildingId) {
+            const container = document.getElementById(`building-amenities-${buildingId}`);
+            const amenityRows = container.querySelectorAll('.amenity-row');
+            
+            container.innerHTML = ''; // Clear and rebuild
+            buildingAmenityCounts[buildingId] = amenityRows.length;
+            
+            amenityRows.forEach((row, index) => {
+                const newAmenityNumber = index + 1;
+                // Extract existing values from the row's inputs
+                const oldTypeInput = row.querySelector('input[id^="amenity-type-b"]');
+                const oldValueInput = row.querySelector('input[id^="amenity-value-b"]');
+                const typeValue = oldTypeInput ? oldTypeInput.value : '';
+                const valueValue = oldValueInput ? oldValueInput.value : '0';
+                
+                const newRow = document.createElement('div');
+                newRow.className = 'amenity-row';
+                newRow.id = `building-${buildingId}-amenity-${newAmenityNumber}`;
+                newRow.innerHTML = `
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Amenity Type</label>
+                            <input type="text" id="amenity-type-b${buildingId}-a${newAmenityNumber}" value="${typeValue.replace(/"/g, '&quot;')}" placeholder="e.g., Swimming Pool">
+                        </div>
+                        <div class="input-group">
+                            <label>Value (Rs.)</label>
+                            <input type="number" id="amenity-value-b${buildingId}-a${newAmenityNumber}" value="${valueValue}">
+                        </div>
+                        <div class="input-group" style="flex: 0 0 auto; margin-top: 10px;">
+                            <button class="remove-btn" onclick="removeBuildingAmenity(${buildingId}, ${newAmenityNumber})" style="padding: 8px 12px;">
+                                Remove Amenity
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(newRow);
+            });
+        }
+        
+        // Deed type selection
+        document.querySelectorAll('.deed-type-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.deed-type-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentDeedType = this.id.replace('deed-', '');
+                
+                // Hide all method sections first
+                document.querySelectorAll('.calculation-method').forEach(m => m.classList.remove('active'));
+                document.getElementById('gift-scenarios').style.display = 'none';
+                document.getElementById('method-selector').style.display = 'none';
+                
+                if (currentDeedType === 'transfer') {
+                    document.getElementById('method-selector').style.display = 'block';
+                    document.getElementById('valuation-method').textContent = currentMethod.charAt(0).toUpperCase() + currentMethod.slice(1);
+                    document.getElementById(`${currentMethod}-method`).classList.add('active');
+                } else if (currentDeedType === 'gift') {
+                    document.getElementById('gift-scenarios').style.display = 'block';
+                    document.getElementById('valuation-method').textContent = 'Gift Calculation';
+                    if (currentGiftScenario === 'scenario-before-1977') {
+                        document.getElementById('gift-method-scenario1').classList.add('active');
+                    } else {
+                        document.getElementById('gift-method-scenario2').classList.add('active');
+                    }
+                } else if (currentDeedType === 'exchange') {
+                    document.getElementById('exchange-method').classList.add('active');
+                    document.getElementById('valuation-method').textContent = 'Simple Calculation';
+                }
+                
+                calculateStampDuty();
+            });
+        });
+        
+        // Gift Scenario Selection
+        document.querySelectorAll('.gift-scenario-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.gift-scenario-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentGiftScenario = this.id;
+                
+                // Hide both gift method sections
+                document.getElementById('gift-method-scenario1').classList.remove('active');
+                document.getElementById('gift-method-scenario2').classList.remove('active');
+                
+                // Show selected gift method
+                if (currentGiftScenario === 'scenario-before-1977') {
+                    document.getElementById('gift-method-scenario1').classList.add('active');
+                } else {
+                    document.getElementById('gift-method-scenario2').classList.add('active');
+                }
+                
+                calculateStampDuty();
+            });
+        });
+        
+        // Method selection for transfer
+        document.querySelectorAll('.method-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentMethod = this.id.replace('method-', '');
+                
+                // Show selected method section
+                document.querySelectorAll('.calculation-method').forEach(m => m.classList.remove('active'));
+                document.getElementById(`${currentMethod}-method`).classList.add('active');
+                document.getElementById('valuation-method').textContent = currentMethod.charAt(0).toUpperCase() + currentMethod.slice(1);
+                
+                calculateStampDuty();
+            });
+        });
+        
+        // Contractor building management
+        function addContractorBuilding() {
+            contractorBuildingCount++;
+            const buildingId = contractorBuildingCount;
+            buildingFloorCounts[buildingId] = 1;
+            buildingAmenityCounts[buildingId] = 0; // NEW: Initialize amenity count
+            
+            const newBuilding = document.createElement('div');
+            newBuilding.className = 'contractor-building-section';
+            newBuilding.id = `building-${buildingId}`;
+            newBuilding.innerHTML = `
+                <div class="contractor-building-header">
+                    <h5>Building ${buildingId}</h5>
+                    <button class="remove-btn" onclick="removeContractorBuilding(${buildingId})">Remove</button>
+                </div>
+                
+                <!-- Building Floors -->
+                <div id="building-floors-${buildingId}">
+                    <div class="floor-row" id="building-${buildingId}-floor-1">
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>Construction Cost/Sq.Ft. (Rs.) - Ground Floor</label>
+                                <input type="number" id="construction-cost-b${buildingId}-f1" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label>Area (Sq.Ft.) - Ground Floor</label>
+                                <input type="number" id="floor-area-b${buildingId}-f1" value="0">
+                            </div>
+                            <div class="input-group" style="flex: 0 0 auto; margin-top: 10px;">
+                                <button class="remove-btn" onclick="removeBuildingFloor(${buildingId}, 1)" style="padding: 8px 12px;">
+                                    Remove Floor
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-btn" onclick="addBuildingFloor(${buildingId})">
+                    <i class="fas fa-plus"></i> Add Another Floor
+                </button>
+                
+                <!-- NEW: Other Amenities Section -->
+                <div class="amenities-section">
+                    <h5>Other Amenities</h5>
+                    <div id="building-amenities-${buildingId}"></div>
+                    <button class="add-btn" onclick="addBuildingAmenity(${buildingId})">
+                        <i class="fas fa-plus"></i> Add Amenity
+                    </button>
+                </div>
+                
+                <!-- Building Depreciation -->
+                <div class="input-group">
+                    <label>Building Depreciation (%)</label>
+                    <input type="number" id="building-depreciation-${buildingId}" value="0" min="0" max="100">
+                </div>
+            `;
+            document.getElementById('contractor-buildings').appendChild(newBuilding);
+            calculateStampDuty();
+        }
+        
+        // Investment method management
+        function addRentalUnit() {
+            rentalUnitCount++;
+            const newUnit = document.createElement('div');
+            newUnit.className = 'rental-unit-section';
+            newUnit.id = `rental-unit-${rentalUnitCount}`;
+            newUnit.innerHTML = `
+                <div class="rental-unit-header">
+                    <h5>Rental Unit ${rentalUnitCount}</h5>
+                    <button class="remove-btn" onclick="removeRentalUnit(${rentalUnitCount})">Remove</button>
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Rent/Sq.Ft. (Rs.)</label>
+                        <input type="number" id="rent-per-sqft-${rentalUnitCount}" value="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Extent (Sq.Ft.)</label>
+                        <input type="number" id="property-extent-${rentalUnitCount}" value="0">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Outgoings (%)</label>
+                    <input type="number" id="outgoings-percent-${rentalUnitCount}" value="0" min="0" max="100">
+                </div>
+            `;
+            document.getElementById('rental-units').appendChild(newUnit);
+            calculateStampDuty();
+        }
+        
+        function removeRentalUnit(unitNumber) {
+            if (rentalUnitCount > 1) {
+                document.getElementById(`rental-unit-${unitNumber}`).remove();
+                rentalUnitCount--;
+                calculateStampDuty();
+            }
+        }
+        
+        // Investment method converters
+        function updateYearsOfPurchase() {
+            const rate = parseFloat(document.getElementById('rate-of-return').value);
+            if (rate > 0) {
+                document.getElementById('years-of-purchase').value = (100 / rate).toFixed(2);
+            }
+            calculateStampDuty();
+        }
+        
+        function updateRateOfReturn() {
+            const years = parseFloat(document.getElementById('years-of-purchase').value);
+            if (years > 0) {
+                document.getElementById('rate-of-return').value = (100 / years).toFixed(2);
+            }
+            calculateStampDuty();
+        }
+        
+        // Calculate stamp duty function
+        function calculateStampDuty() {
+            // Update gift date displays
+            updateGiftDateDisplays();
+            
+            // Calculate property value using the selected method
+            calculatedPropertyValue = 0;
+            let calculationEquation = '';
+            let methodName = '';
+            
+            if (currentDeedType === 'transfer') {
+                switch(currentMethod) {
+                    case 'comparison':
+                        calculatedPropertyValue = calculateComparisonMethod();
+                        calculationEquation = getComparisonEquation();
+                        methodName = 'Comparison Method';
+                        break;
+                    case 'contractors':
+                        calculatedPropertyValue = calculateContractorsMethod();
+                        calculationEquation = getContractorsEquation();
+                        methodName = 'Contractors Method';
+                        break;
+                    case 'investment':
+                        calculatedPropertyValue = calculateInvestmentMethod();
+                        calculationEquation = getInvestmentEquation();
+                        methodName = 'Investment Method';
+                        break;
+                }
+            } else if (currentDeedType === 'gift') {
+                calculatedPropertyValue = calculateGiftMethod();
+                calculationEquation = getGiftEquation();
+                methodName = 'Gift Calculation';
+            } else if (currentDeedType === 'exchange') {
+                calculatedPropertyValue = calculateExchangeMethod();
+                calculationEquation = getExchangeEquation();
+                methodName = 'Simple Calculation';
+            }
+            
+            // Update calculated value displays
+            document.getElementById('calculated-property-value').textContent = 
+                `Rs. ${calculatedPropertyValue.toLocaleString('en-LK')}`;
+            document.getElementById('toggle-calculated-value').textContent = 
+                `Rs. ${Math.round(calculatedPropertyValue).toLocaleString('en-LK')}`;
+            document.getElementById('calculated-equation').innerHTML = calculationEquation;
+            
+            // Update valuation method display
+            document.getElementById('valuation-method').textContent = methodName;
+            
+            // Determine which property value to use for stamp duty
+            let selectedPropertyValue = useCalculatedValue ? calculatedPropertyValue : manualPropertyValue;
+            let roundedValue = Math.round(selectedPropertyValue);
+            
+            // Calculate stamp duty based on deed type
+            let firstTierLimit, firstTierRate, secondTierRate;
+            
+            if (currentDeedType === 'transfer') {
+                firstTierLimit = 100000;
+                firstTierRate = 0.03; // 3%
+                secondTierRate = 0.04; // 4%
+            } else if (currentDeedType === 'gift') {
+                firstTierLimit = 50000;
+                firstTierRate = 0.03; // 3%
+                secondTierRate = 0.02; // 2%
+            } else { // exchange
+                firstTierLimit = 100000;
+                firstTierRate = 0.02; // 2%
+                secondTierRate = 0.03; // 3%
+            }
+            
+            // Calculate duty
+            let firstTierValue = Math.min(firstTierLimit, roundedValue / 2);
+            let secondTierValue = Math.max(0, roundedValue - firstTierValue);
+            let firstTierDuty = firstTierValue * firstTierRate;
+            let secondTierDuty = secondTierValue * secondTierRate;
+            let totalDuty = firstTierDuty + secondTierDuty;
+            
+            // Update display
+            document.getElementById('deed-type-result').textContent = 
+                currentDeedType.charAt(0).toUpperCase() + currentDeedType.slice(1);
+            
+            document.getElementById('property-value-display').textContent = 
+                `Rs. ${roundedValue.toLocaleString('en-LK')}`;
+            document.getElementById('first-tier-duty').textContent = 
+                `Rs. ${firstTierDuty.toLocaleString('en-LK', {minimumFractionDigits: 2})}`;
+            document.getElementById('second-tier-duty').textContent = 
+                `Rs. ${secondTierDuty.toLocaleString('en-LK', {minimumFractionDigits: 2})}`;
+            document.getElementById('total-duty-amount').textContent = 
+                `Rs. ${totalDuty.toLocaleString('en-LK', {minimumFractionDigits: 2})}`;
+            
+            // Update selected result display
+            if (useCalculatedValue) {
+                document.getElementById('selected-result-value').textContent = 
+                    `Rs. ${roundedValue.toLocaleString('en-LK')}`;
+            }
+        }
+        
+        // Comparison Method Calculation - Returns the value
+        function calculateComparisonMethod() {
+            let totalValue = 0;
+            
+            for (let lotId = 1; lotId <= comparisonLotCount; lotId++) {
+                if (document.getElementById(`lot-${lotId}`)) {
+                    let lotValue = 0;
+                    
+                    comparisonLotParts[lotId].forEach(partNumber => {
+                        const perchValue = parseFloat(document.getElementById(`perch-value-${lotId}-${partNumber}`).value) || 0;
+                        const extent = parseFloat(document.getElementById(`extent-${lotId}-${partNumber}`).value) || 0;
+                        const partValue = perchValue * extent;
+                        lotValue += partValue;
+                    });
+                    
+                    totalValue += lotValue;
+                }
+            }
+            
+            return totalValue;
+        }
+        
+        // Comparison Method Equation Display
+        function getComparisonEquation() {
+            let equationLines = [];
+            
+            for (let lotId = 1; lotId <= comparisonLotCount; lotId++) {
+                if (document.getElementById(`lot-${lotId}`)) {
+                    let lotEquation = [];
+                    
+                    comparisonLotParts[lotId].forEach(partNumber => {
+                        const perchValue = parseFloat(document.getElementById(`perch-value-${lotId}-${partNumber}`).value) || 0;
+                        const extent = parseFloat(document.getElementById(`extent-${lotId}-${partNumber}`).value) || 0;
+                        const partValue = perchValue * extent;
+                        
+                        lotEquation.push(`Part ${partNumber}: ${perchValue.toLocaleString()} × ${extent} = ${partValue.toLocaleString()}`);
+                    });
+                    
+                    const lotTotal = equationLines.length > 0 ? '<br>' : '';
+                    equationLines.push(`${lotTotal}Lot ${lotId}: ${lotEquation.join(' + ')}`);
+                }
+            }
+            
+            if (equationLines.length === 0) {
+                return 'No calculation performed yet.';
+            }
+            
+            return equationLines.map(line => 
+                `<div class="equation-line">${line}</div>`
+            ).join('');
+        }
+        
+        // Contractors Method - Returns the value
+        function calculateContractorsMethod() {
+            let totalValue = 0;
+            
+            // Calculate land value
+            for (let lotId = 1; lotId <= contractorLandCount; lotId++) {
+                if (document.getElementById(`contractor-land-${lotId}`)) {
+                    let lotValue = 0;
+                    
+                    contractorLotParts[lotId].forEach(partNumber => {
+                        const perchValue = parseFloat(document.getElementById(`c-perch-value-${lotId}-${partNumber}`).value) || 0;
+                        const extent = parseFloat(document.getElementById(`c-extent-${lotId}-${partNumber}`).value) || 0;
+                        const partValue = perchValue * extent;
+                        lotValue += partValue;
+                    });
+                    
+                    totalValue += lotValue;
+                }
+            }
+            
+            // Calculate building values
+            for (let buildingId = 1; buildingId <= contractorBuildingCount; buildingId++) {
+                if (document.getElementById(`building-${buildingId}`)) {
+                    let buildingValue = 0;
+                    
+                    // Sum all floors
+                    for (let floorId = 1; floorId <= (buildingFloorCounts[buildingId] || 1); floorId++) {
+                        const cost = parseFloat(document.getElementById(`construction-cost-b${buildingId}-f${floorId}`).value) || 0;
+                        const area = parseFloat(document.getElementById(`floor-area-b${buildingId}-f${floorId}`).value) || 0;
+                        buildingValue += cost * area;
+                    }
+                    
+                    // NEW: Sum all amenities
+                    let amenitySum = 0;
+                    if (buildingAmenityCounts[buildingId]) {
+                        for (let amenityId = 1; amenityId <= buildingAmenityCounts[buildingId]; amenityId++) {
+                            const amenityValue = parseFloat(document.getElementById(`amenity-value-b${buildingId}-a${amenityId}`).value) || 0;
+                            amenitySum += amenityValue;
+                        }
+                    }
+                    buildingValue += amenitySum;
+                    
+                    // Apply depreciation
+                    const depreciation = parseFloat(document.getElementById(`building-depreciation-${buildingId}`).value) || 0;
+                    const depreciatedValue = buildingValue * (1 - depreciation/100);
+                    
+                    totalValue += depreciatedValue;
+                }
+            }
+            
+            return totalValue;
+        }
+        
+        // Contractors Method Equation Display
+        function getContractorsEquation() {
+            let equationLines = [];
+            
+            // Calculate land value
+            for (let lotId = 1; lotId <= contractorLandCount; lotId++) {
+                if (document.getElementById(`contractor-land-${lotId}`)) {
+                    let lotValue = 0;
+                    let lotParts = [];
+                    
+                    contractorLotParts[lotId].forEach(partNumber => {
+                        const perchValue = parseFloat(document.getElementById(`c-perch-value-${lotId}-${partNumber}`).value) || 0;
+                        const extent = parseFloat(document.getElementById(`c-extent-${lotId}-${partNumber}`).value) || 0;
+                        const partValue = perchValue * extent;
+                        lotValue += partValue;
+                        
+                        lotParts.push(`Part ${partNumber}: ${perchValue.toLocaleString()} × ${extent}`);
+                    });
+                    
+                    equationLines.push(`Land Lot ${lotId}: ${lotParts.join(' + ')} = ${lotValue.toLocaleString()}`);
+                }
+            }
+            
+            // Calculate building values
+            for (let buildingId = 1; buildingId <= contractorBuildingCount; buildingId++) {
+                if (document.getElementById(`building-${buildingId}`)) {
+                    let buildingValue = 0;
+                    let floorValues = [];
+                    
+                    // Sum all floors
+                    for (let floorId = 1; floorId <= (buildingFloorCounts[buildingId] || 1); floorId++) {
+                        const cost = parseFloat(document.getElementById(`construction-cost-b${buildingId}-f${floorId}`).value) || 0;
+                        const area = parseFloat(document.getElementById(`floor-area-b${buildingId}-f${floorId}`).value) || 0;
+                        const floorValue = cost * area;
+                        buildingValue += floorValue;
+                        
+                        floorValues.push(`Floor ${floorId}: ${cost.toLocaleString()} × ${area}`);
+                    }
+                    
+                    // NEW: Add amenities
+                    let amenitySum = 0;
+                    let amenityLines = [];
+                    if (buildingAmenityCounts[buildingId]) {
+                        for (let amenityId = 1; amenityId <= buildingAmenityCounts[buildingId]; amenityId++) {
+                            const typeInput = document.getElementById(`amenity-type-b${buildingId}-a${amenityId}`);
+                            const valueInput = document.getElementById(`amenity-value-b${buildingId}-a${amenityId}`);
+                            const type = typeInput ? typeInput.value : `Amenity ${amenityId}`;
+                            const value = parseFloat(valueInput ? valueInput.value : 0) || 0;
+                            if (value > 0 || type) {
+                                amenityLines.push(`${type}: ${value.toLocaleString()}`);
+                                amenitySum += value;
+                            }
+                        }
+                    }
+                    buildingValue += amenitySum;
+                    
+                    equationLines.push(`Building ${buildingId}: ${floorValues.join(' + ')} = ${(buildingValue - amenitySum).toLocaleString()}`);
+                    if (amenityLines.length > 0) {
+                        equationLines.push(`&nbsp;&nbsp;Amenities: ${amenityLines.join(' + ')} = ${amenitySum.toLocaleString()}`);
+                    }
+                    equationLines.push(`&nbsp;&nbsp;Subtotal before depreciation: ${buildingValue.toLocaleString()}`);
+                    
+                    // Apply depreciation
+                    const depreciation = parseFloat(document.getElementById(`building-depreciation-${buildingId}`).value) || 0;
+                    const depreciatedValue = buildingValue * (1 - depreciation/100);
+                    
+                    equationLines.push(`&nbsp;&nbsp;After ${depreciation}% depreciation: ${depreciatedValue.toLocaleString()}`);
+                }
+            }
+            
+            if (equationLines.length === 0) {
+                return 'No calculation performed yet.';
+            }
+            
+            return equationLines.map(line => 
+                `<div class="equation-line">${line}</div>`
+            ).join('');
+        }
+        
+        // Investment Method - Returns the value
+        function calculateInvestmentMethod() {
+            let totalValue = 0;
+            const yearsOfPurchase = parseFloat(document.getElementById('years-of-purchase').value) || 0;
+            
+            for (let unitId = 1; unitId <= rentalUnitCount; unitId++) {
+                if (document.getElementById(`rental-unit-${unitId}`)) {
+                    const rentPerSqft = parseFloat(document.getElementById(`rent-per-sqft-${unitId}`).value) || 0;
+                    const extent = parseFloat(document.getElementById(`property-extent-${unitId}`).value) || 0;
+                    const outgoingsPercent = parseFloat(document.getElementById(`outgoings-percent-${unitId}`).value) || 0;
+                    
+                    // Annual rent
+                    const annualRent = rentPerSqft * extent * 12;
+                    // Net annual rent after outgoings
+                    const netAnnualRent = annualRent * (1 - outgoingsPercent/100);
+                    // Capitalized value
+                    const unitValue = netAnnualRent * yearsOfPurchase;
+                    
+                    totalValue += unitValue;
+                }
+            }
+            
+            return totalValue;
+        }
+        
+        // Investment Method Equation Display
+        function getInvestmentEquation() {
+            let equationLines = [];
+            const yearsOfPurchase = parseFloat(document.getElementById('years-of-purchase').value) || 0;
+            
+            for (let unitId = 1; unitId <= rentalUnitCount; unitId++) {
+                if (document.getElementById(`rental-unit-${unitId}`)) {
+                    const rentPerSqft = parseFloat(document.getElementById(`rent-per-sqft-${unitId}`).value) || 0;
+                    const extent = parseFloat(document.getElementById(`property-extent-${unitId}`).value) || 0;
+                    const outgoingsPercent = parseFloat(document.getElementById(`outgoings-percent-${unitId}`).value) || 0;
+                    
+                    // Annual rent
+                    const annualRent = rentPerSqft * extent * 12;
+                    // Net annual rent after outgoings
+                    const netAnnualRent = annualRent * (1 - outgoingsPercent/100);
+                    // Capitalized value
+                    const unitValue = netAnnualRent * yearsOfPurchase;
+                    
+                    equationLines.push(`Unit ${unitId}: (${rentPerSqft} × ${extent} × 12) = ${annualRent.toLocaleString()}`);
+                    equationLines.push(`&nbsp;&nbsp;After ${outgoingsPercent}% outgoings: ${netAnnualRent.toLocaleString()}`);
+                    equationLines.push(`&nbsp;&nbsp;× ${yearsOfPurchase} years: ${unitValue.toLocaleString()}`);
+                }
+            }
+            
+            if (equationLines.length === 0) {
+                return 'No calculation performed yet.';
+            }
+            
+            return equationLines.map(line => 
+                `<div class="equation-line">${line}</div>`
+            ).join('');
+        }
+        
+        // Gift Calculation according to correct formula
+        function calculateGiftMethod() {
+            let totalValue = 0;
+            
+            if (currentGiftScenario === 'scenario-before-1977') {
+                // Calculate for scenario 1 (Property acquired on/before 31st March 1977)
+                const landExtent = parseFloat(document.getElementById('gift-land-extent-s1').value) || 0;
+                const buildingExtent = parseFloat(document.getElementById('gift-building-extent-s1').value) || 0;
+                const perchValueA = parseFloat(document.getElementById('gift-perch-value-a-s1').value) || 0;
+                const buildingValueA = parseFloat(document.getElementById('gift-building-value-a-s1').value) || 0;
+                const improvements = parseFloat(document.getElementById('gift-improvements-s1').value) || 0;
+                const alterations = parseFloat(document.getElementById('gift-alterations-s1').value) || 0;
+                const additions = parseFloat(document.getElementById('gift-additions-s1').value) || 0;
+                const others = parseFloat(document.getElementById('gift-others-s1').value) || 0;
+                const perchValueB = parseFloat(document.getElementById('gift-perch-value-b-s1').value) || 0;
+                const buildingValueB = parseFloat(document.getElementById('gift-building-value-b-s1').value) || 0;
+                
+                // (A) Market Value as at acquisition date
+                const landValueA = perchValueA * landExtent;
+                const totalLandBuildingA = landValueA + buildingValueA;
+                const totalValueA = totalLandBuildingA + improvements + alterations + additions + others;
+                
+                // (B) Open Market Value at gift date
+                const landValueB = perchValueB * landExtent;
+                const totalValueB = landValueB + buildingValueB;
+                
+                // Gift value is the LOWER of (A) or (B) for scenario 1
+                totalValue = Math.min(totalValueA, totalValueB);
+            } else {
+                // Calculate for scenario 2 (Property acquired after 31st March 1977)
+                const landExtent = parseFloat(document.getElementById('gift-land-extent-s2').value) || 0;
+                const buildingExtent = parseFloat(document.getElementById('gift-building-extent-s2').value) || 0;
+                const perchValueA = parseFloat(document.getElementById('gift-perch-value-a-s2').value) || 0;
+                const buildingValueA = parseFloat(document.getElementById('gift-building-value-a-s2').value) || 0;
+                const improvements = parseFloat(document.getElementById('gift-improvements-s2').value) || 0;
+                const alterations = parseFloat(document.getElementById('gift-alterations-s2').value) || 0;
+                const additions = parseFloat(document.getElementById('gift-additions-s2').value) || 0;
+                const others = parseFloat(document.getElementById('gift-others-s2').value) || 0;
+                const perchValueB = parseFloat(document.getElementById('gift-perch-value-b-s2').value) || 0;
+                const buildingValueB = parseFloat(document.getElementById('gift-building-value-b-s2').value) || 0;
+                
+                // (A) Market Value as at acquisition date
+                const landValueA = perchValueA * landExtent;
+                const totalLandBuildingA = landValueA + buildingValueA;
+                const totalValueA = totalLandBuildingA + improvements + alterations + additions + others;
+                
+                // (B) Open Market Value at gift date
+                const landValueB = perchValueB * landExtent;
+                const totalValueB = landValueB + buildingValueB;
+                
+                // Gift value is the LOWER of (A) or (B) for scenario 2
+                totalValue = Math.min(totalValueA, totalValueB);
+            }
+            
+            return totalValue;
+        }
+        
+        // Gift Method Equation Display
+        function getGiftEquation() {
+            let equationLines = [];
+            
+            if (currentGiftScenario === 'scenario-before-1977') {
+                // Calculate for scenario 1
+                const landExtent = parseFloat(document.getElementById('gift-land-extent-s1').value) || 0;
+                const buildingExtent = parseFloat(document.getElementById('gift-building-extent-s1').value) || 0;
+                const perchValueA = parseFloat(document.getElementById('gift-perch-value-a-s1').value) || 0;
+                const buildingValueA = parseFloat(document.getElementById('gift-building-value-a-s1').value) || 0;
+                const improvements = parseFloat(document.getElementById('gift-improvements-s1').value) || 0;
+                const alterations = parseFloat(document.getElementById('gift-alterations-s1').value) || 0;
+                const additions = parseFloat(document.getElementById('gift-additions-s1').value) || 0;
+                const others = parseFloat(document.getElementById('gift-others-s1').value) || 0;
+                const perchValueB = parseFloat(document.getElementById('gift-perch-value-b-s1').value) || 0;
+                const buildingValueB = parseFloat(document.getElementById('gift-building-value-b-s1').value) || 0;
+                
+                // Get the gift date from the input field
+                const giftDate1 = document.getElementById('gift-date-input-s1').value;
+                const formattedGiftDate1 = giftDate1 ? formatDateDDMMYYYY(new Date(giftDate1)) : '31.03.1977';
+                
+                // For scenario 1, acquisition date is static (31.03.1977)
+                const formattedDateA1 = '31.03.1977';
+                
+                // (A) Market Value as at acquisition date
+                const landValueA = perchValueA * landExtent;
+                const totalLandBuildingA = landValueA + buildingValueA;
+                const totalValueA = totalLandBuildingA + improvements + alterations + additions + others;
+                
+                // (B) Open Market Value at gift date
+                const landValueB = perchValueB * landExtent;
+                const totalValueB = landValueB + buildingValueB;
+                
+                equationLines = [
+                    `(A) As market value as at ${formattedDateA1}:`,
+                    `&nbsp;&nbsp;Land: ${perchValueA.toLocaleString()} × ${landExtent} = ${landValueA.toLocaleString()}`,
+                    buildingValueA > 0 ? `&nbsp;&nbsp;Buildings: ${buildingValueA.toLocaleString()}` : null,
+                    `&nbsp;&nbsp;Total: ${totalLandBuildingA.toLocaleString()}`,
+                    improvements > 0 ? `&nbsp;&nbsp;Improvements: ${improvements.toLocaleString()}` : null,
+                    alterations > 0 ? `&nbsp;&nbsp;Alterations: ${alterations.toLocaleString()}` : null,
+                    additions > 0 ? `&nbsp;&nbsp;Additions: ${additions.toLocaleString()}` : null,
+                    others > 0 ? `&nbsp;&nbsp;Others: ${others.toLocaleString()}` : null,
+                    `&nbsp;&nbsp;Total (A): ${totalValueA.toLocaleString()}`,
+                    `(B) Open Market Value at Gift Date (${formattedGiftDate1}):`,
+                    `&nbsp;&nbsp;Land: ${perchValueB.toLocaleString()} × ${landExtent} = ${landValueB.toLocaleString()}`,
+                    buildingValueB > 0 ? `&nbsp;&nbsp;Buildings: ${buildingValueB.toLocaleString()}` : null,
+                    `&nbsp;&nbsp;Total (B): ${totalValueB.toLocaleString()}`
+                ];
+            } else {
+                // Calculate for scenario 2
+                const landExtent = parseFloat(document.getElementById('gift-land-extent-s2').value) || 0;
+                const buildingExtent = parseFloat(document.getElementById('gift-building-extent-s2').value) || 0;
+                const perchValueA = parseFloat(document.getElementById('gift-perch-value-a-s2').value) || 0;
+                const buildingValueA = parseFloat(document.getElementById('gift-building-value-a-s2').value) || 0;
+                const improvements = parseFloat(document.getElementById('gift-improvements-s2').value) || 0;
+                const alterations = parseFloat(document.getElementById('gift-alterations-s2').value) || 0;
+                const additions = parseFloat(document.getElementById('gift-additions-s2').value) || 0;
+                const others = parseFloat(document.getElementById('gift-others-s2').value) || 0;
+                const perchValueB = parseFloat(document.getElementById('gift-perch-value-b-s2').value) || 0;
+                const buildingValueB = parseFloat(document.getElementById('gift-building-value-b-s2').value) || 0;
+                
+                // Get dates from manual inputs
+                const dateA2 = document.getElementById('date-input-a-s2').value;
+                const giftDate2 = document.getElementById('gift-date-input-s2').value;
+                const formattedDateA2 = dateA2 ? formatDateDDMMYYYY(new Date(dateA2)) : 'DD.MM.YYYY';
+                const formattedGiftDate2 = giftDate2 ? formatDateDDMMYYYY(new Date(giftDate2)) : 'DD.MM.YYYY';
+                
+                // (A) Market Value as at acquisition date
+                const landValueA = perchValueA * landExtent;
+                const totalLandBuildingA = landValueA + buildingValueA;
+                const totalValueA = totalLandBuildingA + improvements + alterations + additions + others;
+                
+                // (B) Open Market Value at gift date
+                const landValueB = perchValueB * landExtent;
+                const totalValueB = landValueB + buildingValueB;
+                
+                equationLines = [
+                    `(A) As market value as at ${formattedDateA2}:`,
+                    `&nbsp;&nbsp;Land: ${perchValueA.toLocaleString()} × ${landExtent} = ${landValueA.toLocaleString()}`,
+                    buildingValueA > 0 ? `&nbsp;&nbsp;Buildings: ${buildingValueA.toLocaleString()}` : null,
+                    `&nbsp;&nbsp;Total: ${totalLandBuildingA.toLocaleString()}`,
+                    improvements > 0 ? `&nbsp;&nbsp;Improvements: ${improvements.toLocaleString()}` : null,
+                    alterations > 0 ? `&nbsp;&nbsp;Alterations: ${alterations.toLocaleString()}` : null,
+                    additions > 0 ? `&nbsp;&nbsp;Additions: ${additions.toLocaleString()}` : null,
+                    others > 0 ? `&nbsp;&nbsp;Others: ${others.toLocaleString()}` : null,
+                    `&nbsp;&nbsp;Total (A): ${totalValueA.toLocaleString()}`,
+                    `(B) Open Market Value at Gift Date (${formattedGiftDate2}):`,
+                    `&nbsp;&nbsp;Land: ${perchValueB.toLocaleString()} × ${landExtent} = ${landValueB.toLocaleString()}`,
+                    buildingValueB > 0 ? `&nbsp;&nbsp;Buildings: ${buildingValueB.toLocaleString()}` : null,
+                    `&nbsp;&nbsp;Total (B): ${totalValueB.toLocaleString()}`
+                ];
+            }
+            
+            // Filter out null lines
+            equationLines = equationLines.filter(line => line !== null);
+            
+            if (equationLines.length === 0) {
+                return 'No calculation performed yet.';
+            }
+            
+            return equationLines.map(line => 
+                `<div class="equation-line">${line}</div>`
+            ).join('');
+        }
+        
+        // Exchange Method - Returns the value
+        function calculateExchangeMethod() {
+            const perchValue = parseFloat(document.getElementById('exchange-perch-value').value) || 0;
+            const extent = parseFloat(document.getElementById('exchange-extent').value) || 0;
+            const totalValue = perchValue * extent;
+            
+            return totalValue;
+        }
+        
+        // Exchange Method Equation Display
+        function getExchangeEquation() {
+            const perchValue = parseFloat(document.getElementById('exchange-perch-value').value) || 0;
+            const extent = parseFloat(document.getElementById('exchange-extent').value) || 0;
+            
+            if (perchValue === 0 && extent === 0) {
+                return 'No calculation performed yet.';
+            }
+            
+            return `<div class="equation-line">${perchValue.toLocaleString()} × ${extent} = ${(perchValue * extent).toLocaleString()}</div>`;
+        }
+        
+        // NEW: Save all data function
+        function saveAllData() {
+            // Save current state to localStorage
+            const saveData = {
+                description: document.getElementById('description').value,
+                fileNumber: document.getElementById('file-number').value,
+                fileYear: document.getElementById('file-year').value,
+                fileLetter: document.getElementById('file-letter').value,
+                deedType: currentDeedType,
+                calculationMethod: currentMethod,
+                giftScenario: currentGiftScenario,
+                manualPropertyValue: manualPropertyValue,
+                calculatedPropertyValue: calculatedPropertyValue,
+                useCalculatedValue: useCalculatedValue,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('stampDutyLastSave', JSON.stringify(saveData));
+            localStorage.setItem('stampDutyDescriptions', JSON.stringify(savedDescriptions));
+            localStorage.setItem('stampDutyLocations', JSON.stringify(savedLocations));
+            localStorage.setItem('stampDutyDatabaseValues', JSON.stringify(savedDatabaseValues));
+            
+            // Also save form values including the new database range fields
+            const formData = {};
+            document.querySelectorAll('input, textarea, select').forEach(input => {
+                if (input.id) {
+                    formData[input.id] = input.value;
+                }
+            });
+            localStorage.setItem('stampDutyFormData', JSON.stringify(formData));
+        }
+        
+        // NEW: Reset all data function
+        function resetAllData() {
+            // Clear all form fields
+            document.querySelectorAll('input[type="text"], input[type="number"], input[type="url"], textarea').forEach(input => {
+                if (input.id && !input.id.includes('file-prefix') && !input.id.includes('file-dept') && 
+                    !input.id.includes('file-office')) {
+                    input.value = '';
+                }
+            });
+            
+            // Reset select elements
+            document.getElementById('file-letter').value = 'A';
+            document.getElementById('file-year').value = new Date().getFullYear().toString();
+            
+            // Reset area converter
+            document.querySelectorAll('.area-inputs input').forEach(input => {
+                input.value = '0';
+            });
+            
+            // Reset database range fields
+            document.getElementById('serial-number').value = '';
+            document.getElementById('database-range-value').value = '';
+            
+            // Clear saved database values
+            savedDatabaseValues = {};
+            localStorage.removeItem('stampDutyDatabaseValues');
+            updateSavedDatabaseDisplay();
+            
+            // Reset deed type
+            document.querySelectorAll('.deed-type-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('deed-transfer').classList.add('active');
+            currentDeedType = 'transfer';
+            
+            // Reset method
+            document.getElementById('method-selector').style.display = 'block';
+            document.querySelectorAll('.method-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('method-comparison').classList.add('active');
+            currentMethod = 'comparison';
+            
+            // Reset calculation displays
+            calculatedPropertyValue = 0;
+            manualPropertyValue = 0;
+            useCalculatedValue = true;
+            
+            // Reset UI displays
+            document.getElementById('calculated-property-value').textContent = 'Rs. 0';
+            document.getElementById('manual-property-value-display').textContent = 'Rs. 0';
+            document.getElementById('toggle-calculated-value').textContent = 'Rs. 0';
+            document.getElementById('toggle-manual-value').textContent = 'Rs. 0';
+            document.getElementById('selected-result-value').textContent = 'Rs. 0';
+            document.getElementById('property-value-display').textContent = 'Rs. 0';
+            document.getElementById('first-tier-duty').textContent = 'Rs. 0';
+            document.getElementById('second-tier-duty').textContent = 'Rs. 0';
+            document.getElementById('total-duty-amount').textContent = 'Rs. 0';
+            
+            // Reset toggles
+            selectCalculationMethod('calculated');
+            
+            // Reset map
+            const defaultLat = 6.9271;
+            const defaultLng = 79.8612;
+            map.setView([defaultLat, defaultLng], 13);
+            marker.setLatLng([defaultLat, defaultLng]);
+            document.getElementById('latitude').value = defaultLat.toFixed(6);
+            document.getElementById('longitude').value = defaultLng.toFixed(6);
+            
+            // Clear generated file number
+            document.getElementById('generated-file-number').style.display = 'none';
+            
+            alert('All data has been reset.');
+        }
+    </script>
