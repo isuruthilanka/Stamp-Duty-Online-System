@@ -23,7 +23,7 @@ const LandingPage = () => {
         <section className="branding-section">
           <div className="branding-header">
             <div className="branding-top">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Emblem_of_Sri_Lanka.svg/1200px-Emblem_of_Sri_Lanka.svg.png" alt="Sri Lanka Emblem" className="provincial-logo" />
+              <img src="/emblem-sri-lanka.svg" alt="Sri Lanka Emblem" className="provincial-logo" />
               <h1 className="hero-title">Western Province Stamp Duty Digital Platform</h1>
             </div>
 

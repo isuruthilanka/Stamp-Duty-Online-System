@@ -265,7 +265,7 @@ const AcknowledgmentReceipt = ({ appData, onBack, onPrint }) => {
                 {/* Header Section */}
                 <div className="document-header">
                     <div className="emblem-placeholder">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Emblem_of_Sri_Lanka.svg" alt="Government Emblem" width="70" />
+                        <img src="/emblem-sri-lanka.svg" alt="Government Emblem" width="70" />
                     </div>
                     <div className="header-text">
                         <h2 className="ministry-name">Department of Revenue - Western Province</h2>

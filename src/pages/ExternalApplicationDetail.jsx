@@ -235,7 +235,7 @@ const ExternalApplicationDetail = () => {
                 {/* Government Header (Visible in Print) */}
                 <div className="print-only-header" style={{ display: 'none', textAlign: 'center', marginBottom: '1.5rem', borderBottom: '3px double #000', paddingBottom: '1rem' }}>
                     <div style={{ marginBottom: '0.5rem' }}>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Emblem_of_Sri_Lanka.svg" alt="Emblem" width="60" />
+                        <img src="/emblem-sri-lanka.svg" alt="Emblem" width="60" />
                     </div>
                     <h2 style={{ margin: 0, fontSize: '16pt', fontWeight: 700, textTransform: 'uppercase' }}>Department of Revenue - Western Province</h2>
                     <h3 style={{ margin: '0.2rem 0', fontSize: '14pt', fontWeight: 600 }}>Stamp Duty Online System</h3>
