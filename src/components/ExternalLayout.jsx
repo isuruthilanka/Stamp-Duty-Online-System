@@ -126,3 +126,12 @@ const ExternalLayout = () => {
                 </div>
             </aside>
 
+
+            <main className="main-content" style={{ background: '#fcfdfe' }}>
+                <Outlet />
+            </main>
+        </div>
+    );
+};
+
+export default ExternalLayout;
