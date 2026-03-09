@@ -1,19 +1,18 @@
-import React from 'react';
-import { useNavigate, useLocation, Navigate } from 'react-router-dom'; // Added Navigate
+import React, { useState } from 'react';
+import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { useAppContext } from '../AppContext';
 import '../styles/Dashboard.css';
 
 const DashboardLayout = ({ children }) => {
-    const { currentUser, loading, logout } = useAppContext(); // Added logout
+    const { currentUser, loading, logout } = useAppContext();
     const navigate = useNavigate();
     const location = useLocation();
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
-    // Handle loading state first
     if (loading) {
         return <div className="loading-screen">Authenticating Session...</div>;
     }
 
-    // If not loading and no current user, redirect
     if (!currentUser) {
         return <Navigate to="/department-login" replace />;
     }
@@ -21,6 +20,11 @@ const DashboardLayout = ({ children }) => {
     const handleLogout = () => {
         logout();
         navigate('/department-login');
+    };
+
+    const handleNavClick = (path) => {
+        navigate(path);
+        setSidebarOpen(false);
     };
 
     const isTaxOfficer = currentUser?.role === 'TAX_OFFICER';
@@ -38,10 +42,25 @@ const DashboardLayout = ({ children }) => {
 
     return (
         <div className="dashboard-container">
-            <aside className="sidebar">
+            {/* Mobile top bar */}
+            <div className="mobile-topbar">
+                <button className="hamburger-btn" onClick={() => setSidebarOpen(true)} aria-label="Open menu">
+                    <span /><span /><span />
+                </button>
+                <span className="mobile-topbar-title">Stamp Duty System</span>
+                <button className="mobile-logout-btn" onClick={handleLogout}>Logout</button>
+            </div>
+
+            {/* Overlay for mobile */}
+            {sidebarOpen && (
+                <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)} />
+            )}
+
+            <aside className={`sidebar ${sidebarOpen ? 'sidebar-mobile-open' : ''}`}>
                 <div className="sidebar-header">
                     <h2 style={{ fontSize: '1.1rem' }}>STAMP DUTY ONLINE SYSTEM</h2>
                     <p style={{ fontSize: '0.7rem', opacity: 0.6 }}>Department of Revenue - Western Province</p>
+                    <button className="sidebar-close-btn" onClick={() => setSidebarOpen(false)} aria-label="Close menu">✕</button>
                 </div>
 
                 <nav className="nav-list">
@@ -49,7 +68,7 @@ const DashboardLayout = ({ children }) => {
                         <div
                             key={item.name}
                             className={`nav-item ${location.pathname === item.path ? 'active' : ''}`}
-                            onClick={() => navigate(item.path)}
+                            onClick={() => handleNavClick(item.path)}
                         >
                             <span>{item.icon}</span>
                             <span>{item.name}</span>
