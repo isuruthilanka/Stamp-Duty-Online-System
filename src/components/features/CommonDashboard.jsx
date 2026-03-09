@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
-import GlobalSearch from './GlobalSearch';
+import GlobalSearch from '../ui/GlobalSearch';
 
 const CommonDashboard = () => {
     const { applications, currentUser, updateAppStatus, distributeToRegion, REGIONS } = useAppContext();
