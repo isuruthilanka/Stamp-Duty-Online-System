@@ -54,6 +54,33 @@ button {
   gap: 0.5rem;
 }
 
+/* ── Global responsive helpers ───────────────────────────── */
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+table {
+  width: 100%;
+}
+
+/* Prevent text overflow on small screens */
+* {
+  word-break: break-word;
+}
+
+/* Touch-friendly tap targets */
+@media (max-width: 768px) {
+  button, a, input, select, textarea {
+    min-height: 44px;
+  }
+
+  /* Improve scrolling feel on mobile */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 .btn-primary {
   background: var(--primary-color);
   color: var(--white) !important;

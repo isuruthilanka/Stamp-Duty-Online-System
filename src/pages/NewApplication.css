@@ -348,21 +348,127 @@
     font-weight: normal;
 }
 
-@media (max-width: 768px) {
-    .stepper {
-        overflow-x: auto;
-        padding-bottom: 1rem;
+@media (max-width: 1024px) {
+    .smart-wizard-container {
+        padding: 1.5rem;
     }
-    
+
+    .wizard-card {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .smart-wizard-container {
+        padding: 1rem;
+    }
+
+    .wizard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .wizard-header h1 {
+        font-size: 1.5rem;
+    }
+
+    /* Stepper scrollable on mobile */
+    .stepper-wrapper {
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .stepper {
+        min-width: 400px;
+        padding-bottom: 0.5rem;
+    }
+
     .progress-bar-container {
         display: none;
     }
-    
-    .step-item {
-        min-width: 100px;
+
+    .step-circle {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
     }
-    
+
+    .step-title {
+        font-size: 0.75rem;
+        max-width: 80px;
+    }
+
+    /* Cards */
+    .wizard-card {
+        padding: 1.2rem;
+        border-radius: 12px;
+    }
+
+    .wizard-card h2 {
+        font-size: 1.4rem;
+    }
+
+    .card-section {
+        padding: 1rem;
+    }
+
+    /* Large type selector: 1 column on mobile */
     .type-selector.large {
         grid-template-columns: 1fr;
+    }
+
+    .type-selector.large .type-tab {
+        padding: 1rem;
+    }
+
+    /* Review grid: single column */
+    .review-grid {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+
+    /* Navigation buttons */
+    .wizard-actions {
+        padding-top: 1.2rem;
+    }
+
+    .navigation-buttons {
+        flex-wrap: wrap;
+        gap: 0.6rem;
+    }
+
+    .btn-secondary,
+    .btn-primary,
+    .btn-submit {
+        flex: 1;
+        min-width: 120px;
+        text-align: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .smart-wizard-container {
+        padding: 0.8rem;
+    }
+
+    .wizard-card {
+        padding: 1rem;
+    }
+
+    .stepper {
+        min-width: 350px;
+    }
+
+    .step-circle {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+
+    .wizard-card h2 {
+        font-size: 1.2rem;
     }
 }
