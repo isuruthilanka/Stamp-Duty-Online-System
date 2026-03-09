@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useAppContext } from '../AppContext';
+import { useAppContext } from '../../context/AppContext';
 
 const StampDutyRegistration = () => {
     const { applications } = useAppContext();

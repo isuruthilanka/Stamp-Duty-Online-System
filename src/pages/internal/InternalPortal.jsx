@@ -1,15 +1,15 @@
 import React from 'react';
-import { useAppContext } from '../AppContext';
-import DashboardLayout from '../components/DashboardLayout';
-import AdminPanel from '../components/AdminPanel';
-import CommonDashboard from '../components/CommonDashboard';
+import { useAppContext } from '../../context/AppContext';
+import DashboardLayout from '../../components/layout/DashboardLayout';
+import AdminPanel from '../../components/features/AdminPanel';
+import CommonDashboard from '../../components/features/CommonDashboard';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import ApplicationDetail from '../components/ApplicationDetail';
-import StampDutyRegistration from '../components/StampDutyRegistration';
-import StampDutyCalculator from '../components/StampDutyCalculator';
-import OfficialOpinionForm from '../components/OfficialOpinionForm';
-import OfficialDeficiencyNotice from '../components/OfficialDeficiencyNotice';
-import DeficiencyCalculator from '../components/DeficiencyCalculator';
+import ApplicationDetail from '../../components/features/ApplicationDetail';
+import StampDutyRegistration from '../../components/features/StampDutyRegistration';
+import StampDutyCalculator from '../../components/features/StampDutyCalculator';
+import OfficialOpinionForm from '../../components/features/OfficialOpinionForm';
+import OfficialDeficiencyNotice from '../../components/features/OfficialDeficiencyNotice';
+import DeficiencyCalculator from '../../components/features/DeficiencyCalculator';
 
 const InternalPortal = () => {
     const { currentUser, loading } = useAppContext();

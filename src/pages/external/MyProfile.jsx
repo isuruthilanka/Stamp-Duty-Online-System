@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppContext } from '../AppContext';
+import { useAppContext } from '../../context/AppContext';
 // Layout is already provided by parent route
 
 const MyProfile = () => {

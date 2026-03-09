@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Navigate, Outlet } from 'react-router-dom';
-import { useAppContext } from '../AppContext';
-import '../styles/Dashboard.css';
+import { useAppContext } from '../../context/AppContext';
+import '../../styles/Dashboard.css';
 
 const ExternalLayout = () => {
     const { currentUser, logout, loading } = useAppContext();

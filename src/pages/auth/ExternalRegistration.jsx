@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppContext } from '../AppContext';
-import '../styles/Auth.css';
+import { useAppContext } from '../../context/AppContext';
+import '../../styles/Auth.css';
 
 const ExternalRegistration = () => {
     const [formData, setFormData] = useState({

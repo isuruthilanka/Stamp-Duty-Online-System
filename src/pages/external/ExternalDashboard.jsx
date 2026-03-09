@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppContext } from '../AppContext';
-import GlobalSearch from '../components/GlobalSearch';
+import { useAppContext } from '../../context/AppContext';
+import GlobalSearch from '../../components/ui/GlobalSearch';
 
 const ExternalDashboard = () => {
     const { applications, currentUser, logout } = useAppContext();

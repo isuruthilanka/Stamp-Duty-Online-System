@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useAppContext } from '../AppContext';
+import { useAppContext } from '../../context/AppContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaCheck, FaBuilding, FaMapMarkedAlt, FaFileContract, FaFileUpload, FaPrint } from 'react-icons/fa';
 

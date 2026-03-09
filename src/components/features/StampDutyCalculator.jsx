@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAppContext } from '../AppContext';
+import { useAppContext } from '../../context/AppContext';
 
 const StampDutyCalculator = () => {
     const iframeRef = useRef(null);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAppContext } from '../AppContext';
+import { useAppContext } from '../../context/AppContext';
 
 const formatNumberWithCommas = (val) => {
     if (val === '' || val == null) return '';

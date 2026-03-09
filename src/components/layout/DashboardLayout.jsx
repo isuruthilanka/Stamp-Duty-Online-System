@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Navigate } from 'react-router-dom';
-import { useAppContext } from '../AppContext';
-import '../styles/Dashboard.css';
+import { useAppContext } from '../../context/AppContext';
+import '../../styles/Dashboard.css';
 
 const DashboardLayout = ({ children }) => {
     const { currentUser, loading, logout } = useAppContext();

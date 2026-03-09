@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { useAppContext } from '../AppContext';
+import { useAppContext } from '../../context/AppContext';
 
 const ApplicationDetail = () => {
     const { id } = useParams();

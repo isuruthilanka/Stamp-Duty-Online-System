@@ -1,17 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
-import ExternalLogin from './pages/ExternalLogin';
-import DepartmentLogin from './pages/DepartmentLogin';
-import InternalPortal from './pages/InternalPortal';
-import ExternalDashboard from './pages/ExternalDashboard';
-import NewApplication from './pages/NewApplication';
-import ExternalLayout from './components/ExternalLayout';
-import ExternalRegistration from './pages/ExternalRegistration';
-import ExternalApplicationDetail from './pages/ExternalApplicationDetail';
-import ForgotPassword from './pages/ForgotPassword';
-import HelpDesk from './pages/HelpDesk';
-import MyProfile from './pages/MyProfile';
+import ExternalLogin from './pages/auth/ExternalLogin';
+import DepartmentLogin from './pages/auth/DepartmentLogin';
+import InternalPortal from './pages/internal/InternalPortal';
+import ExternalDashboard from './pages/external/ExternalDashboard';
+import NewApplication from './pages/external/NewApplication';
+import ExternalLayout from './components/layout/ExternalLayout';
+import ExternalRegistration from './pages/auth/ExternalRegistration';
+import ExternalApplicationDetail from './pages/external/ExternalApplicationDetail';
+import ForgotPassword from './pages/auth/ForgotPassword';
+import HelpDesk from './pages/external/HelpDesk';
+import MyProfile from './pages/external/MyProfile';
 import NotFound from './pages/NotFound';
 import { Navigate } from 'react-router-dom';
 
