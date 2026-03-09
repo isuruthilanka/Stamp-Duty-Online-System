@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stamp duty · offline instant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: #0f172a;
+            min-height: 100%;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Custom scrollbar to match dark theme seamlessly */
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        .orb {
+            display: none;
+            /* Hide background orbs in iframe to prevent layout issues and scrollbars */
+        }
+
+        .orb-1 {
+            background: #4f46e5;
+            top: -20vh;
+            left: -10vw;
+        }
+
+        .orb-2 {
+            background: #2563eb;
+            bottom: -20vh;
+            right: -10vw;
+            animation-delay: -5s;
+            width: 60vmax;
+            height: 60vmax;
+        }
+
+        .orb-3 {
+            background: #7e22ce;
+            top: 40vh;
+            right: 20vw;
+            animation-duration: 40s;
+            opacity: 0.2;
+        }
+
+        @keyframes orbFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(5%, 5%) scale(1.2);
+            }
+        }
+
+        #root {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .premium-card {
+            background: #0f172a;
+            border-radius: 0;
+            padding: 2rem;
+            box-shadow: none;
+            border: none;
+            min-height: 100vh;
+        }
+
+        .system-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2.2rem;
+        }
+
+        .system-header .icon {
+            font-size: 2.8rem;
+            background: linear-gradient(145deg, #fbbf24, #a78bfa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .system-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(120deg, #f0f9ff, #c7d2fe, #e0f2fe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: shine 6s linear infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                background-position: 0% center;
+            }
+
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        .version-badge {
+            margin-left: auto;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #9ab3d8;
+            font-size: 0.9rem;
+            font-weight: 500;
+            backdrop-filter: blur(4px);
+        }
+
+        .toggle-pill {
+            display: flex;
+            gap: 0.75rem;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.6rem;
+            border-radius: 80px;
+            margin-bottom: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .pill-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: transparent;
+            color: #b3c7e5;
+            cursor: pointer;
+            transition: 0.2s;
+            backdrop-filter: blur(4px);
+        }
+
+        .pill-btn.active {
+            background: rgba(255, 255, 255, 0.9);
+            color: #0f172a;
+            box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.4);
+        }
+
+        .input-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #a5b9d4;
+            margin-bottom: 0.6rem;
+        }
+
+        .input-label .icon {
+            color: #818cf8;
+            width: 1.2rem;
+            font-size: 1.2rem;
+        }
+
+        .input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-container input {
+            width: 100%;
+            padding: 1.1rem 1.5rem;
+            font-size: 1.2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1.5px solid rgba(255, 255, 255, 0.05);
+            border-radius: 36px;
+            outline: none;
+            color: white;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .input-container input:focus {
+            border-color: #818cf8;
+            box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
+        }
+
+        .input-container input.error {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .input-suffix {
+            position: absolute;
+            right: 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #a5b9d4;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(4px);
+            pointer-events: none;
+        }
+
+        .error-msg {
+            color: #ef4444;
+            font-size: 0.75rem;
+            margin-top: 0.4rem;
+            margin-left: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .compute-btn {
+            width: 100%;
+            background: linear-gradient(145deg, #1e2b47, #0f1a2f);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 60px;
+            padding: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: 0.15s;
+            margin: 2rem 0 2rem;
+            box-shadow: 0 10px 25px -8px #00000080, 0 0 0 1px #2d3a5e inset;
+        }
+
+        .compute-btn:hover {
+            transform: scale(1.01);
+            background: linear-gradient(145deg, #253450, #121f38);
+            box-shadow: 0 18px 30px -8px black;
+        }
+
+        .result-card {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(12px);
+            border-radius: 36px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            animation: fadeUp 0.4s ease;
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-title {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            color: #cbd5e1;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            padding-bottom: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .calculation-note {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            color: #a5b9d4;
+            margin-bottom: 1rem;
+            display: inline-block;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0.3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .result-label {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #b0c9f0;
+            font-weight: 500;
+        }
+
+        .result-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(145deg, #e0f2fe, #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .total-row {
+            border-bottom: none;
+            margin-top: 0.5rem;
+        }
+
+        .total-label {
+            font-weight: 700;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .total-value {
+            font-size: 2.2rem;
+            background: linear-gradient(145deg, #fbbf24, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+
+        .signature-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px dashed rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+        }
+
+        .signature-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .signature-col {
+            flex: 1 1 200px;
+        }
+
+        .signature-line {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .signature-line span {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+        }
+
+        .signature-line .line {
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            margin-top: 0.2rem;
+        }
+
+        .stamp-placeholder {
+            font-size: 1.2rem;
+            color: #fbbf24;
+            opacity: 0.7;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            justify-content: flex-end;
+        }
+
+        .print-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 40px;
+            padding: 0.9rem 2.2rem;
+            color: #ffd966;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+            transition: 0.2s;
+            backdrop-filter: blur(5px);
+            letter-spacing: 0.3px;
+        }
+
+        .print-btn:hover {
+            background: rgba(255, 215, 0, 0.15);
+            border-color: #ffd966;
+            color: #ffe68f;
+            transform: scale(1.02);
+        }
+
+        .system-footnote {
+            margin-top: 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            color: #627b9b;
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 1.2rem;
+        }
+
+        /* hidden result until computed */
+        .result-card.hidden {
+            display: none;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0.5in;
+                display: block;
+            }
+
+            .orb,
+            .toggle-pill,
+            .input-group,
+            .compute-btn,
+            .print-btn,
+            .version-badge,
+            .system-footnote {
+                display: none !important;
+            }
+
+            .premium-card {
+                background: white !important;
+                backdrop-filter: none !important;
+                box-shadow: none !important;
+                border: 1px solid #ccc !important;
+                padding: 1.5rem !important;
+                border-radius: 10px !important;
+            }
+
+            .system-header h1 {
+                background: none !important;
+                color: black !important;
+                -webkit-text-fill-color: black !important;
+                animation: none !important;
+            }
+
+            .system-header .icon {
+                color: black !important;
+                background: none !important;
+                -webkit-text-fill-color: black !important;
+            }
+
+            .result-card {
+                background: white !important;
+                backdrop-filter: none !important;
+                border: 1px solid #ddd !important;
+                box-shadow: none !important;
+                color: black !important;
+            }
+
+            .result-title,
+            .result-label,
+            .result-value,
+            .total-label,
+            .total-value,
+            .signature-section,
+            .calculation-note {
+                color: black !important;
+                background: none !important;
+                -webkit-text-fill-color: black !important;
+            }
+
+            .result-value,
+            .total-value {
+                background: none !important;
+                color: black !important;
+                -webkit-text-fill-color: black !important;
+            }
+
+            .signature-section {
+                border-top-color: #aaa !important;
+            }
+
+            .signature-line .line {
+                background: black !important;
+            }
+
+            .stamp-placeholder {
+                color: #333 !important;
+            }
+
+            /* Hide percentage details in print, keep only deed type */
+            .method-detail {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div id="root">
+        <div class="premium-card">
+            <!-- header with emoji icons (offline, fast) -->
+            <div class="system-header">
+                <span class="icon">🏛️</span>
+                <h1>Calculation of Stamp Duty Deficiency</h1>
+                <div class="version-badge">
+                    <span>🛡️</span> v3.0
+                </div>
+            </div>
+
+            <!-- deed type toggle -->
+            <div class="toggle-pill">
+                <button class="pill-btn active" id="btnTransfer"><span>📝</span> Transfer</button>
+                <button class="pill-btn" id="btnGift"><span>🎁</span> Gift</button>
+            </div>
+
+            <!-- market value -->
+            <div class="input-group">
+                <label class="input-label"><span class="icon">🏢</span> Market value (Rs.)</label>
+                <div class="input-container">
+                    <input type="text" id="marketValue" placeholder="0.00" autocomplete="off">
+                    <span class="input-suffix">LKR</span>
+                </div>
+                <div class="error-msg" id="errorMarket" style="display: none;"><span>⚠️</span> <span></span></div>
+            </div>
+
+            <!-- stamp affixed -->
+            <div class="input-group">
+                <label class="input-label"><span class="icon">📜</span> Stamp affixed (Rs.)</label>
+                <div class="input-container">
+                    <input type="text" id="stampAffixed" placeholder="0.00" autocomplete="off">
+                    <span class="input-suffix">LKR</span>
+                </div>
+                <div class="error-msg" id="errorStamp" style="display: none;"><span>⚠️</span> <span></span></div>
+            </div>
+
+            <!-- penalty rate -->
+            <div class="input-group">
+                <label class="input-label"><span class="icon">%</span> Penalty rate (%)</label>
+                <div class="input-container">
+                    <input type="text" id="penaltyRate" placeholder="e.g. 10" autocomplete="off">
+                    <span class="input-suffix">%</span>
+                </div>
+                <div class="error-msg" id="errorPenalty" style="display: none;"><span>⚠️</span> <span></span></div>
+            </div>
+
+            <!-- compute button -->
+            <button class="compute-btn" id="computeBtn"><span>🧮</span> Compute Stamp Duty & Penalty</button>
+
+            <!-- result panel (initially hidden) -->
+            <div class="result-card hidden" id="resultCard">
+                <div class="result-title">
+                    <span>📊</span> Settlement Breakdown
+                </div>
+                <div class="calculation-note" id="calcNote">
+                    <span>ℹ️</span> Method: Transfer deed
+                </div>
+
+                <div class="result-row">
+                    <span class="result-label"><span>📄</span> Stamp Duty Payable</span>
+                    <span class="result-value" id="dutyVal">Rs. 0.00</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label"><span>⚠️</span> Deficiency</span>
+                    <span class="result-value" id="deficiencyVal">Rs. 0.00</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label"><span>⚖️</span> Penalty (<span id="penaltyRateDisplay">0</span>%)</span>
+                    <span class="result-value" id="penaltyVal">Rs. 0.00</span>
+                </div>
+                <div class="result-row total-row">
+                    <span class="result-label total-label"><span>💰</span> Total Payable</span>
+                    <span class="result-value total-value" id="totalVal">Rs. 0.00</span>
+                </div>
+
+                <!-- signature section -->
+                <div class="signature-section">
+                    <div class="signature-row">
+                        <div class="signature-col">
+                            <div class="signature-line">
+                                <span>Signature</span>
+                                <div class="line"></div>
+                            </div>
+                            <div class="signature-line">
+                                <span>Full Name</span>
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                        <div class="signature-col">
+                            <div class="signature-line">
+                                <span>Designation</span>
+                                <div class="line"></div>
+                            </div>
+                            <div class="signature-line">
+                                <span>Date</span>
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stamp-placeholder">
+                        <span>●</span> <span>●</span> <span>●</span> (official stamp)
+                    </div>
+                </div>
+
+                <!-- print button -->
+                <div style="display: flex; justify-content: flex-end;">
+                    <button class="print-btn" id="printReportBtn"><span>🖨️</span> Print Report</button>
+                </div>
+            </div>
+
+            <!-- footer -->
+            <div class="system-footnote">
+                <span><span style="color:#4ade80;">✅</span> Department of Revenue (Western Province) © 2026</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            // ----- DOM elements -----
+            const btnTransfer = document.getElementById('btnTransfer');
+            const btnGift = document.getElementById('btnGift');
+            const marketInput = document.getElementById('marketValue');
+            const stampInput = document.getElementById('stampAffixed');
+            const penaltyInput = document.getElementById('penaltyRate');
+            const computeBtn = document.getElementById('computeBtn');
+            const resultCard = document.getElementById('resultCard');
+            const calcNote = document.getElementById('calcNote');
+            const dutyVal = document.getElementById('dutyVal');
+            const deficiencyVal = document.getElementById('deficiencyVal');
+            const penaltyVal = document.getElementById('penaltyVal');
+            const totalVal = document.getElementById('totalVal');
+            const penaltyRateDisplay = document.getElementById('penaltyRateDisplay');
+            const errorMarket = document.getElementById('errorMarket');
+            const errorStamp = document.getElementById('errorStamp');
+            const errorPenalty = document.getElementById('errorPenalty');
+            const printBtn = document.getElementById('printReportBtn');
+
+            // error message spans
+            const errorMarketMsg = errorMarket.querySelector('span:last-child');
+            const errorStampMsg = errorStamp.querySelector('span:last-child');
+            const errorPenaltyMsg = errorPenalty.querySelector('span:last-child');
+
+            // ----- state (raw values as string, deed type) -----
+            let rawMarket = '';
+            let rawStamp = '';
+            let rawPenalty = '';
+            let deedType = 'transfer';   // 'transfer' or 'gift'
+
+            // ----- helper functions for formatting -----
+            function formatNumberWithCommas(value) {
+                if (value === '' || value === null || value === undefined) return '';
+                const parts = value.toString().split('.');
+                parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                return parts.join('.');
+            }
+
+            function unformatNumber(str) {
+                return str.replace(/,/g, '');
+            }
+
+            // format to 2 decimals for display (result numbers)
+            function formatCurrency(num) {
+                return num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+
+            // ----- formatted input behavior -----
+            function setupFormattedInput(inputEl, setRawFn) {
+                let isFocused = false;
+
+                function updateDisplayFromRaw() {
+                    if (!isFocused) {
+                        inputEl.value = formatNumberWithCommas(inputEl.dataset.raw || '');
+                    }
+                }
+
+                inputEl.addEventListener('focus', function (e) {
+                    isFocused = true;
+                    // show raw without commas
+                    inputEl.value = inputEl.dataset.raw || '';
+                });
+
+                inputEl.addEventListener('blur', function (e) {
+                    isFocused = false;
+                    const raw = unformatNumber(inputEl.value);
+                    if (raw === '' || /^\d*\.?\d*$/.test(raw)) {
+                        inputEl.dataset.raw = raw;
+                        setRawFn(raw);
+                    } else {
+                        // revert to previous raw
+                        inputEl.value = formatNumberWithCommas(inputEl.dataset.raw || '');
+                    }
+                    updateDisplayFromRaw();
+                });
+
+                inputEl.addEventListener('input', function (e) {
+                    const raw = unformatNumber(inputEl.value);
+                    if (raw === '' || /^\d*\.?\d*$/.test(raw)) {
+                        inputEl.dataset.raw = raw;
+                        setRawFn(raw);
+                    }
+                    // while focused, keep as typed (with possible commas)
+                });
+
+                // initial
+                inputEl.dataset.raw = '';
+                updateDisplayFromRaw();
+            }
+
+            // raw setters
+            function setRawMarket(val) { rawMarket = val; hideError(errorMarket); }
+            function setRawStamp(val) { rawStamp = val; hideError(errorStamp); }
+            function setRawPenalty(val) { rawPenalty = val; hideError(errorPenalty); }
+
+            setupFormattedInput(marketInput, setRawMarket);
+            setupFormattedInput(stampInput, setRawStamp);
+            setupFormattedInput(penaltyInput, setRawPenalty);
+
+            // hide error helper
+            function hideError(el) {
+                el.style.display = 'none';
+            }
+            function showError(el, msg) {
+                el.querySelector('span:last-child').textContent = msg;
+                el.style.display = 'flex';
+            }
+
+            // ----- toggle deed type -----
+            function setActiveDeed(type) {
+                deedType = type;
+                if (type === 'transfer') {
+                    btnTransfer.classList.add('active');
+                    btnGift.classList.remove('active');
+                } else {
+                    btnGift.classList.add('active');
+                    btnTransfer.classList.remove('active');
+                }
+                // update calculation note if result visible
+                if (!resultCard.classList.contains('hidden')) {
+                    updateCalcNote();
+                }
+            }
+
+            btnTransfer.addEventListener('click', function () { setActiveDeed('transfer'); hideResult(); });
+            btnGift.addEventListener('click', function () { setActiveDeed('gift'); hideResult(); });
+
+            function hideResult() {
+                resultCard.classList.add('hidden');
+            }
+
+            function updateCalcNote() {
+                const methodName = deedType === 'transfer' ? 'Transfer deed' : 'Gift deed';
+                calcNote.innerHTML = `<span>ℹ️</span> Method: <span class="method-name">${methodName}</span>`;
+            }
+
+            // ----- calculation -----
+            computeBtn.addEventListener('click', function () {
+                // parse raw values
+                const mv = parseFloat(rawMarket);
+                const sa = parseFloat(rawStamp);
+                const pr = parseFloat(rawPenalty);
+
+                let hasError = false;
+
+                if (isNaN(mv) || mv < 0) {
+                    showError(errorMarket, 'Required · non‑negative');
+                    hasError = true;
+                } else { hideError(errorMarket); }
+
+                if (isNaN(sa) || sa < 0) {
+                    showError(errorStamp, 'Required · non‑negative');
+                    hasError = true;
+                } else { hideError(errorStamp); }
+
+                if (isNaN(pr) || pr < 0) {
+                    showError(errorPenalty, 'Required · non‑negative');
+                    hasError = true;
+                } else { hideError(errorPenalty); }
+
+                if (hasError) {
+                    resultCard.classList.add('hidden');
+                    return;
+                }
+
+                // compute duty
+                let duty;
+                if (deedType === 'transfer') {
+                    duty = mv <= 100000 ? mv * 0.03 : 100000 * 0.03 + (mv - 100000) * 0.04;
+                } else {
+                    duty = mv <= 50000 ? mv * 0.03 : 50000 * 0.03 + (mv - 50000) * 0.02;
+                }
+
+                const deficiency = Math.max(0, duty - sa);
+                const penalty = deficiency * (pr / 100);
+                const total = deficiency + penalty;
+
+                // update result card
+                dutyVal.textContent = 'Rs. ' + formatCurrency(duty);
+                deficiencyVal.textContent = 'Rs. ' + formatCurrency(deficiency);
+                penaltyVal.textContent = 'Rs. ' + formatCurrency(penalty);
+                totalVal.textContent = 'Rs. ' + formatCurrency(total);
+                penaltyRateDisplay.textContent = rawPenalty; // show as entered (without formatting)
+                updateCalcNote();
+
+                resultCard.classList.remove('hidden');
+            });
+
+            // ----- print button -----
+            printBtn.addEventListener('click', function () {
+                window.print();
+            });
+
+            // hide result when any input changes (already done via raw setters that call hideError, but we need hide result)
+            marketInput.addEventListener('input', hideResult);
+            stampInput.addEventListener('input', hideResult);
+            penaltyInput.addEventListener('input', hideResult);
+            // also on blur we might need to hide result, but input covers it. Also toggle buttons hide.
+
+            // initial hide errors
+            hideError(errorMarket);
+            hideError(errorStamp);
+            hideError(errorPenalty);
+        })();
+    </script>
+</body>
+
+</html>
