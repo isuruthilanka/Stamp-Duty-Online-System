@@ -7,13 +7,18 @@ export default defineConfig({
   server: {
     port: 5173,
     strictPort: false,        // allow fallback to next port if 5173 is taken
-    host: '127.0.0.1',
     hmr: {
       overlay: true,          // show errors as overlay instead of crashing
     },
     watch: {
       usePolling: true,       // more reliable file watching on Windows
       interval: 1000,
+    },
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5001',
+        changeOrigin: true,
+      },
     },
   },
 })

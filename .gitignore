@@ -12,6 +12,14 @@ dist
 dist-ssr
 *.local
 
+# SQLite database (Railway uses ephemeral storage; attach a Volume for persistence)
+server/database.sqlite
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
