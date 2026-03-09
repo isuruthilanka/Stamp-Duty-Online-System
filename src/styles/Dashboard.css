@@ -1,3 +1,17 @@
+/* ─── Mobile Top Bar ─────────────────────────────────────── */
+.mobile-topbar {
+    display: none;
+}
+
+/* ─── Sidebar Overlay ────────────────────────────────────── */
+.sidebar-overlay {
+    display: none;
+}
+
+.sidebar-close-btn {
+    display: none;
+}
+
 .dashboard-container {
     display: flex;
     height: 100vh;
