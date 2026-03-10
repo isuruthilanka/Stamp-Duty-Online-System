@@ -1,0 +1,66 @@
+=================================================== 
+  STAMP DUTY ONLINE SYSTEM - LOGGING DIAGNOSTIC 
+  Date: Thu 02/26/2026  9:46:37.77 
+=================================================== 
+ 
+[1/6] Checking Node.js... 
+v24.13.1
+[OK] Node.js is present. 
+ 
+[2/6] Checking Port 5000... 
+[OK] Port 5000 check done. 
+ 
+[3/6] Checking Loopback (127.0.0.1)... 
+
+Pinging 127.0.0.1 with 32 bytes of data:
+Reply from 127.0.0.1: bytes=32 time<1ms TTL=128
+
+Ping statistics for 127.0.0.1:
+    Packets: Sent = 1, Received = 1, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 0ms, Average = 0ms
+[OK] Loopback check done. 
+ 
+[4/6] Checking Proxy... 
+
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings
+    ProxyEnable    REG_DWORD    0x0
+
+[OK] Proxy check done. 
+ 
+[5/6] Checking Hosts File... 
+# Copyright (c) 1993-2009 Microsoft Corp.
+#
+# This is a sample HOSTS file used by Microsoft TCP/IP for Windows.
+#
+# This file contains the mappings of IP addresses to host names. Each
+# entry should be kept on an individual line. The IP address should
+# be placed in the first column followed by the corresponding host name.
+# The IP address and the host name should be separated by at least one
+# space.
+#
+# Additionally, comments (such as these) may be inserted on individual
+# lines or following the machine name denoted by a '#' symbol.
+#
+# For example:
+#
+#      102.54.94.97     rhino.acme.com          # source server
+#       38.25.63.10     x.acme.com              # x client host
+# localhost name resolution is handled within DNS itself.
+#	127.0.0.1       localhost
+#	::1             localhost
+#127.0.0.1 www.youtube.com
+#127.0.0.1 youtube.com
+#127.0.0.1 Https://www.youtube.com
+#127.0.0.1 Https://youtube.com
+#127.0.0.1 www.facebook.com
+#127.0.0.1 facebook.com
+#127.0.0.1 Https://www.facebook.com
+#127.0.0.1 Https://facebook.com
+[OK] Hosts check done. 
+ 
+[6/6] Attempting to start server briefly... 
+This will attempt to start the server for 5 seconds to check for startup errors. 
+Fallback server running at http://localhost:5000/
+If localhost doesn't work, check your network IP.
+[OK] Server test done. 
